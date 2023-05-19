@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Header } from './components/layout/private/Header'
+
+import { Routing } from './router/Routing'
 
 
 
@@ -8,8 +8,11 @@ function App() {
 
   return (
 
-    <div class="layout">
-      <Header></Header>
+    <div className="layout">
+      {/* Cargar toda la configuracion de las rutas*/}
+      <Routing></Routing>
+
+
     </div>
 
 
