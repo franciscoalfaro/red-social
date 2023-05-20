@@ -11,12 +11,12 @@ export const AuthProvider = ({ children }) => {
 
     //se ejecuta la primera ves del provider
     useEffect(()=>{
-        autUser()
+        authUser()
 
     },[])
 
     //metodo de autenticar el usuario
-    const autUser=async()=>{
+    const authUser=async()=>{
         //obtener datos del usuario del localStorage
         const token = localStorage.getItem("token")
         const user = localStorage.getItem("user")

@@ -5,12 +5,14 @@ import avatar from '../../../src/assets/img/user.png'
 import { SerializeForm } from '../../helpers/SerializeForm'
 
 export const Config = () => {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
 
   const [saved, setSaved] = useState("not_saved")
 
   const updateUser = async(e) => {
+
     e.preventDefault()
+    console.log(auth)
     //recoger datos del formulario
     let newDataUser = SerializeForm(e.target)
     //eliminar datos innecesarios
@@ -28,10 +30,15 @@ export const Config = () => {
     const data = await request.json()
 
     if(data.status == "success"){
+      delete data.user.password
+      setAuth({ ...auth, ...data.user })
       setSaved("saved")
-    }else{
-      setSaved("error")
+    }if(data.status == "warning"){
+        setSaved("warning")
+    }if(data.status == "error"){
+        setSaved("error")
     }
+
   }
   return (
     <>
@@ -41,6 +48,7 @@ export const Config = () => {
 
       <div className="content__posts">
         {saved == "saved" ? <strong className='alert alert-success'>Datos actualizados de forma correcta</strong> : ""}
+        {saved == "warning" ? <strong className='alert alert-warning'>Nick ya existe utiliza otro</strong> : ""}
 
         {saved == "error" ? <strong className='alert alert-danger'>Error al actualizar el usuario</strong> : ""}
 
