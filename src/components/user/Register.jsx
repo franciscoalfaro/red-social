@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { Global } from '../../helpers/Global'
 
 export const Register = () => {
     const { form, changed } = useForm({})
+    const [saved, setSaved] = useState('not_sended')
 
     const saveUser = async (e) => {
         //prevenir actualizacion de pagina o pantalla al realizar envio del form
@@ -24,6 +25,13 @@ export const Register = () => {
 
         const data = await request.json()
         console.log(data)
+        if(data.status == "success"){
+            setSaved("saved")
+        }if(data.status == "warning"){
+            setSaved("warning")
+        }if(data.status == "error"){
+            setSaved("error")
+        }
 
     }
     return (
@@ -33,6 +41,10 @@ export const Register = () => {
             </header>
 
             <div className="content__posts">
+            {saved =="saved"? <strong className='alert alert-success'>Usuario Registrado Correctamente</strong>:""}
+            {saved =="warning"? <strong className='alert alert-warning'> Usuario ya existe </strong>: ""}
+            {saved =="error"?   <strong className='alert alert-danger'>Error al crear el usuario</strong> : ""}
+     
                 <form className='register-form' onSubmit={saveUser}>
                     <div className='form-group'>
                         <label htmlFor='name'>Nombre</label>
