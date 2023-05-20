@@ -6,6 +6,8 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
 
     const [auth, setAuth] = useState({})
+    const [counters, setCounters] = useState({})
+    const [loading, setLoading] = useState(true)
 
     //se ejecuta la primera ves del provider
     useEffect(()=>{
@@ -21,6 +23,7 @@ export const AuthProvider = ({ children }) => {
 
         //comprobar token
         if(!token || !user){
+            setLoading(false)
             return false
         }
 
@@ -29,6 +32,7 @@ export const AuthProvider = ({ children }) => {
         const userId= userObj.id
 
         //peticion ajax al back-end
+        //que se devuelvan los datos del usuario
         const request = await fetch(Global.url+"user/profile/"+userId,{
             method:"GET",
             headers:{
@@ -38,18 +42,40 @@ export const AuthProvider = ({ children }) => {
 
         })
 
-        //que se devuelvan los datos del usuario
 
         const data = await request.json()
+
+        //feature de contador de mensajes
+
+        //Peticion para devolver contadores
+
+        const requestCounter = await fetch(Global.url+"user/counters/"+userId,{
+            method:"GET",
+            headers:{
+                'Content-Type': 'application/json',
+                "Authorization":token
+            }
+
+        })
+
+        const dataCounter = await requestCounter.json()
+
+
         //set el estado auth
         setAuth(data.user)
+        setCounters(dataCounter)
+        setLoading(false)
 
     }
 
     return (
         <AuthContext.Provider value={{
             auth,
-            setAuth
+            setAuth,
+            counters,
+            setCounters,
+            loading
+
             
         }}>{children}</AuthContext.Provider>
     )

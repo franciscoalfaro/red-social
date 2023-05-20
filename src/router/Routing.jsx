@@ -6,6 +6,9 @@ import { Register } from '../components/user/Register'
 import { PrivatecLayout } from '../components/layout/private/PrivateLayout'
 import { Feed } from '../components/publication/Feed'
 import { AuthProvider } from '../context/AuthProvider'
+import { Logout } from '../components/user/Logout'
+import { People } from '../components/user/People'
+import { Config } from '../components/user/Config'
 
 
 export const Routing = () => {
@@ -22,6 +25,9 @@ export const Routing = () => {
           <Route path='/social' element={<PrivatecLayout></PrivatecLayout>}>
             <Route index element={<Feed></Feed>}></Route>
             <Route path='feed' element={<Feed></Feed>}></Route>
+            <Route path='logout' element={<Logout></Logout>}></Route>
+            <Route path='gente' element={<People></People>}></Route>
+            <Route path='ajustes' element={<Config></Config>}></Route>
           </Route>
 
 

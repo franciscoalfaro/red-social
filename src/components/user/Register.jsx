@@ -14,7 +14,7 @@ export const Register = () => {
         let newUser = form
 
         //guardar datos en backend
-        console.log(newUser)
+
         const request = await fetch(Global.url + "user/register", {
             method: "POST",
             body: JSON.stringify(newUser),
@@ -24,7 +24,7 @@ export const Register = () => {
         })
 
         const data = await request.json()
-        console.log(data)
+
         if(data.status == "success"){
             setSaved("saved")
         }if(data.status == "warning"){

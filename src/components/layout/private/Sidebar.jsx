@@ -5,8 +5,9 @@ import { Global } from '../../../helpers/Global'
 
 
 export const Sidebar = () => {
-    const {auth} = useAuth()
-    console.log(auth)
+    const {auth, counters} = useAuth()
+    console.log(auth,counters)
+
     return (
         <aside className="layout__aside">
 
@@ -28,33 +29,29 @@ export const Sidebar = () => {
                         <div className="general-info__container-names">
                             <a href="#" className="container-names__name">{auth.name} {auth.surname}</a>
                             <p className="container-names__nickname">{auth.nick}</p>
+                            <p className="container-names__bio">{auth.bio}</p>
                         </div>
                     </div>
 
                     <div className="profile-info__stats">
-
                         <div className="stats__following">
                             <a href="#" className="following__link">
                                 <span className="following__title">Siguiendo</span>
-                                <span className="following__number">10</span>
+                                <span className="following__number">{counters.following}</span>
                             </a>
                         </div>
                         <div className="stats__following">
                             <a href="#" className="following__link">
                                 <span className="following__title">Seguidores</span>
-                                <span className="following__number">13</span>
+                                <span className="following__number">{counters.followed}</span>
                             </a>
                         </div>
-
-
                         <div className="stats__following">
                             <a href="#" className="following__link">
                                 <span className="following__title">Publicaciones</span>
-                                <span className="following__number">17</span>
+                                <span className="following__number">{counters.publications}</span>
                             </a>
                         </div>
-
-
                     </div>
                 </div>
 

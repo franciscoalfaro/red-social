@@ -1,8 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { Header } from './Header'
+import useAuth from '../../../hooks/useAuth'
 
 export const PublicLayout = () => {
+
+    const {auth} = useAuth()
+
     return (
         <>
             {/*Layout*/}
@@ -11,7 +15,8 @@ export const PublicLayout = () => {
             {/*contenido principal*/}
 
             <section className="layout__content">
-                <Outlet></Outlet>
+                {!auth._id ?<Outlet></Outlet>:<Navigate to="/social"></Navigate>}
+                
             </section>
 
         </>
