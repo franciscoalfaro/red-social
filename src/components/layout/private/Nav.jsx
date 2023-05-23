@@ -5,7 +5,7 @@ import useAuth from '../../../hooks/useAuth'
 import { Global } from '../../../helpers/Global'
 
 export const Nav = () => {
-    const {auth} = useAuth()
+    const { auth } = useAuth()
 
     return (
         <nav className="navbar__container-lists">
@@ -32,7 +32,7 @@ export const Nav = () => {
                     </NavLink>
                 </li>
 
-            {/*   <li className="menu-list__item">
+                {/*   <li className="menu-list__item">
                     <NavLink to="#" className="menu-list__link">
                         <i className="fa-regular fa-envelope"></i>
                         <span className="menu-list__title">Mensajes</span>
@@ -43,8 +43,8 @@ export const Nav = () => {
             <ul className="container-lists__list-end">
                 <li className="list-end__item">
                     <a to="#" className="list-end__link-image">
-                         {auth.imagen =='default.png' && <img src={avatar} className="list-end__img" alt="Foto de perfil"></img>}
-                         {auth.imagen !='default.png' && <img src={Global.url+"user/avatar/"+auth.imagen} className="list-end__img" alt="Foto de perfil"></img>}
+                        {auth.image == 'default.png' && <img src={avatar} className="list-end__img" alt="Foto de perfil"></img>}
+                        {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="list-end__img" alt="Foto de perfil"></img>}
                     </a>
                 </li>
                 <li className="list-end__item">

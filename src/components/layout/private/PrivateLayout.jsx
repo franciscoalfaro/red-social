@@ -4,7 +4,7 @@ import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import useAuth from '../../../hooks/useAuth'
 
-export const PrivatecLayout = () => {
+export const PrivateLayout = () => {
     const { auth, loading } = useAuth()
 
     if (loading) {

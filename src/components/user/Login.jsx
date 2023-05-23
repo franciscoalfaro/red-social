@@ -8,7 +8,7 @@ export const Login = () => {
     const { form, changed } = useForm({})
     const [saved, setSaved] = useState('not_sended')
 
-    const {setAuth} = useAuth()
+    const { setAuth } = useAuth()
 
     const loginUser = async (e) => {
         e.preventDefault();
@@ -33,18 +33,17 @@ export const Login = () => {
             //persistir datos en el nav -- guardar datos de inicio de sesion
             localStorage.setItem("token", data.token)
             localStorage.setItem("user", JSON.stringify(data.user))
-
             setSaved("login")
-
             //Set Datos en el auth
             setAuth(data.user)
             //redireccion
-            setTimeout(()=>{
-                window.location.reload()
+            setTimeout(() => {window.location.reload()},0)
 
-            },100)
-
-        } else {
+        }else if(data.status == "error_404") {
+            setSaved("error_404")
+        }else if(data.status == "Not Found"){
+            setSaved("warning")
+        }else{
             setSaved("error")
         }
 
@@ -58,7 +57,9 @@ export const Login = () => {
             </header>
             <div className="content__posts">
                 {saved == "login" ? <strong className='alert alert-success'>Te has identificado de forma correcta</strong> : ""}
+                {saved == "warning" ? <strong className='alert alert-warning'>Usuario no registrado</strong> : ""}
                 {saved == "error" ? <strong className='alert alert-danger'>usuario o clave incorrecto</strong> : ""}
+                {saved == "error_404" ? <strong className='alert alert-warning'>Falta usuario o clave</strong> : ""}
                 <form className='form-login' onSubmit={loginUser}>
                     <div className='form-group'>
                         <label htmlFor='email'>Email</label>

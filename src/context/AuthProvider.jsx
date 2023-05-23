@@ -10,34 +10,34 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     //se ejecuta la primera ves del provider
-    useEffect(()=>{
+    useEffect(() => {
         authUser()
 
-    },[])
+    }, [])
 
     //metodo de autenticar el usuario
-    const authUser=async()=>{
+    const authUser = async () => {
         //obtener datos del usuario del localStorage
         const token = localStorage.getItem("token")
         const user = localStorage.getItem("user")
 
         //comprobar token
-        if(!token || !user){
+        if (!token || !user) {
             setLoading(false)
             return false
         }
 
         //tranformar datos a obj JS
         const userObj = JSON.parse(user)
-        const userId= userObj.id
+        const userId = userObj.id
 
         //peticion ajax al back-end
         //que se devuelvan los datos del usuario
-        const request = await fetch(Global.url+"user/profile/"+userId,{
-            method:"GET",
-            headers:{
+        const request = await fetch(Global.url + "user/profile/" + userId, {
+            method: "GET",
+            headers: {
                 'Content-Type': 'application/json',
-                "Authorization":token
+                "Authorization": token
             }
 
         })
@@ -49,11 +49,11 @@ export const AuthProvider = ({ children }) => {
 
         //Peticion para devolver contadores
 
-        const requestCounter = await fetch(Global.url+"user/counters/"+userId,{
-            method:"GET",
-            headers:{
+        const requestCounter = await fetch(Global.url + "user/counters/" + userId, {
+            method: "GET",
+            headers: {
                 'Content-Type': 'application/json',
-                "Authorization":token
+                "Authorization": token
             }
 
         })
@@ -69,15 +69,15 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{
-            auth,
-            setAuth,
-            counters,
-            setCounters,
-            loading
-
-            
-        }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider
+            value={{
+                auth,
+                setAuth,
+                counters,
+                setCounters,
+                loading
+            }}>{children}
+        </AuthContext.Provider>
     )
 }
 export default AuthContext

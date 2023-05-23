@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter, Navigate, Link } from 'react-router-dom'
 import { PublicLayout } from '../components/layout/public/PublicLayout'
 import { Login } from '../components/user/Login'
 import { Register } from '../components/user/Register'
-import { PrivatecLayout } from '../components/layout/private/PrivateLayout'
+import { PrivateLayout } from '../components/layout/private/PrivateLayout'
 import { Feed } from '../components/publication/Feed'
 import { AuthProvider } from '../context/AuthProvider'
 import { Logout } from '../components/user/Logout'
@@ -22,7 +22,7 @@ export const Routing = () => {
             <Route path='registro' element={<Register></Register>}></Route>
           </Route>
 
-          <Route path='/social' element={<PrivatecLayout></PrivatecLayout>}>
+          <Route path='/social' element={<PrivateLayout></PrivateLayout>}>
             <Route index element={<Feed></Feed>}></Route>
             <Route path='feed' element={<Feed></Feed>}></Route>
             <Route path='logout' element={<Logout></Logout>}></Route>
@@ -31,7 +31,7 @@ export const Routing = () => {
           </Route>
 
 
-          <Route path='*' element={<><p><h1>Error 404 <Link to="/">Volver Al inicio</Link></h1></p></>}></Route>
+          <Route path='*' element={<><h1><p>Error 404 <Link to="/">Volver Al inicio</Link></p></h1></>}></Route>
 
 
 
