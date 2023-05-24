@@ -9,10 +9,10 @@ export const AuthProvider = ({ children }) => {
     const [counters, setCounters] = useState({})
     const [loading, setLoading] = useState(true)
 
+
     //se ejecuta la primera ves del provider
     useEffect(() => {
         authUser()
-
     }, [])
 
     //metodo de autenticar el usuario

@@ -13,7 +13,6 @@ export const Config = () => {
     e.preventDefault()
  
     const token = localStorage.getItem('token')
-    
  
  
     //recoger datos del formulario
@@ -45,12 +44,12 @@ export const Config = () => {
  
     // subida de imagen
     const fileInput = document.querySelector("#file")
-    console.log(fileInput)
+    
  
     if (data.status == "success" && fileInput.files[0]) {
       //recoger imagen a subir
       const formData = new FormData()
-      console.log(formData)
+      
       formData.append('file0', fileInput.files[0])
  
       //peticion para enviar el fichero
@@ -66,7 +65,6 @@ export const Config = () => {
       if (uploadData.status == "success" && uploadData.user) {
         delete uploadData.password
         setAuth({ ...auth, ...uploadData.user })
-        setTimeout(() => {window.location.reload()},0)   
         setSaved("saved")
       } else {
         setSaved("error")
@@ -84,7 +82,6 @@ export const Config = () => {
       <div className="content__posts">
         {saved == "saved" ? <strong className='alert alert-success'>Datos actualizados de forma correcta</strong> : ""}
         {saved == "warning" ? <strong className='alert alert-warning'>Nick ya existe utiliza otro</strong> : ""}
-
         {saved == "error" ? <strong className='alert alert-danger'>Error al actualizar el usuario</strong> : ""}
  
         <form className='config-form' onSubmit={updateUser}>
@@ -125,7 +122,6 @@ export const Config = () => {
             <div className="general-info__container-avatar">
               {auth.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
               {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil"></img>}
-              {imageUrl && <img src={imageUrl} alt="Uploaded" />}
  
             </div>
  
