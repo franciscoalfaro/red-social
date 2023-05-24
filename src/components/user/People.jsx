@@ -6,12 +6,15 @@ export const People = () => {
 
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(1)
+  const [more, setMore] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getUsers()
+    getUsers(1)
   }, [])
 
-  const getUsers = async (nextPage) => {
+  const getUsers = async (nextPage = 1) => {
+    setLoading(true)
     //Peticion para obtener usuarios
 
     const request = await fetch(Global.url + "user/list/" + nextPage, {
@@ -24,10 +27,13 @@ export const People = () => {
     })
     //Crear un estado para poder listar
     const data = await request.json()
+   
+
     console.log(data.users)
     if (data.users && data.status == "success") {
 
       let newUsers = data.users
+      setLoading(false)
 
       if(users.length >=1){
         newUsers = [...users, ...data.users]
@@ -35,6 +41,10 @@ export const People = () => {
       setUsers(newUsers)
 
       //Paginacion
+      if(users.length>=data.totalDocs ){
+        setMore(false)
+      }
+
     }
   }
 
@@ -52,6 +62,8 @@ export const People = () => {
         <h1 className="content__title">Gente</h1>
       </header>
       <div className="content__posts">
+
+     
 
 
 
@@ -81,10 +93,7 @@ export const People = () => {
                 </div>
 
               </div>
-
-
               <div className="post__buttons">
-
                 <a href="#" className="post__button post__button--green">
                   Seguir
                 </a>
@@ -104,12 +113,14 @@ export const People = () => {
 
       </div>
       <br></br>
-
+      {loading ? "Cargando":""}
+      {more &&
       <div className="content__container-btn">
         <button className="content__btn-more-post" onClick={nextPage}>
           Ver mas Personas
         </button>
       </div>
+      }
     </>
   )
 }
