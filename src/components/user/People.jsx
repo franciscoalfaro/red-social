@@ -7,6 +7,7 @@ export const People = () => {
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(1)
   const [more, setMore] = useState(true)
+  const [following, setFollowing] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -27,32 +28,33 @@ export const People = () => {
     })
     //Crear un estado para poder listar
     const data = await request.json()
-   
 
     console.log(data.users)
     if (data.users && data.status == "success") {
 
       let newUsers = data.users
-      setLoading(false)
 
-      if(users.length >=1){
+      if (users.length >= 1) {
         newUsers = [...users, ...data.users]
       }
+      // seteare estados
       setUsers(newUsers)
+      setFollowing(data.user_following)
+      setLoading(false)
 
       //Paginacion
-      if(users.length>=data.totalDocs ){
+      if (users.length >= (data.totalDocs - data.users.length)) {
         setMore(false)
       }
 
     }
   }
 
-  const nextPage=()=>{
-    let next = page +1
+  const nextPage = () => {
+    let next = page + 1
     setPage(next)
     getUsers(next)
-    console.log(page,users)
+    console.log(page, users)
   }
 
 
@@ -63,27 +65,27 @@ export const People = () => {
       </header>
       <div className="content__posts">
 
-     
+
 
 
 
         {users.map(user => {
-          return(
+          return (
             <article className="posts__post" key={user._id}>
 
               <div className="post__container">
 
                 <div className="post__image-user">
                   <a href="#" className="post__image-link">
-                  {user.image =='default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
-                  {user.image !='default.png' && <img src={Global.url+"user/avatar/"+user.image} className="post__user-img" alt="Foto de perfil"></img>}
+                    {user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
+                    {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="post__user-img" alt="Foto de perfil"></img>}
                   </a>
                 </div>
 
                 <div className="post__body">
 
                   <div className="post__user-info">
-                    <a href="#" className="user-info__name">{user.name} {user.username}</a>
+                    <a href="#" className="user-info__name">{user.name} {user.surname}</a>
                     <span className="user-info__divider"> | </span>
                     <a href="#" className="user-info__create-date">{user.create_at}</a>
                   </div>
@@ -94,14 +96,19 @@ export const People = () => {
 
               </div>
               <div className="post__buttons">
-                <a href="#" className="post__button post__button--green">
-                  Seguir
-                </a>
-                {/*
-            <a href="#" className="post__button">
-              Dejar de Seguir
-            </a>
-*/}
+                {!following.includes(user._id) &&
+                  <a href="#" className="post__button post__button--green">
+                    Seguir
+                  </a>
+                }
+
+                {following.includes(user._id) &&
+
+                  <a href="#" className="post__button">
+                    Dejar de Seguir
+                  </a>
+                }
+
               </div>
 
             </article>
@@ -113,13 +120,13 @@ export const People = () => {
 
       </div>
       <br></br>
-      {loading ? "Cargando":""}
+      {loading ? "Cargando" : ""}
       {more &&
-      <div className="content__container-btn">
-        <button className="content__btn-more-post" onClick={nextPage}>
-          Ver mas Personas
-        </button>
-      </div>
+        <div className="content__container-btn">
+          <button className="content__btn-more-post" onClick={nextPage}>
+            Ver mas Personas
+          </button>
+        </div>
       }
     </>
   )
