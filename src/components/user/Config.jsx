@@ -6,8 +6,8 @@ import { SerializeForm } from '../../helpers/SerializeForm'
  
 export const Config = () => {
   const { auth, setAuth } = useAuth()
- 
   const [saved, setSaved] = useState("not_saved")
+
  
   const updateUser = async (e) => {
     e.preventDefault()
@@ -64,7 +64,7 @@ export const Config = () => {
  
       if (uploadData.status == "success" && uploadData.user) {
         delete uploadData.password
-        setAuth({ ...auth, ...uploadData.user })
+        setAuth({ ...auth, ...uploadData.user})
         setSaved("saved")
       } else {
         setSaved("error")
