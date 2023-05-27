@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Global } from '../../helpers/Global'
-import { UserList } from './UserList'
+import { UserList } from '../user/UserList'
+import { useParams } from 'react-router-dom'
 
-export const People = () => {
+export const Followers = () => {
 
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(1)
   const [more, setMore] = useState(true)
   const [following, setFollowing] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const params = useParams()
 
 
   useEffect(() => {
@@ -17,9 +20,12 @@ export const People = () => {
 
   const getUsers = async (nextPage = 1) => {
     setLoading(true)
-    //Peticion para obtener usuarios
 
-    const request = await fetch(Global.url + "user/list/" + nextPage, {
+    //obtener userId
+    const userId = params.userId
+
+    //Peticion para obtener usuarios
+    const request = await fetch(Global.url + "follow/followers/" + userId + "/" + nextPage, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +35,13 @@ export const People = () => {
     })
     //Crear un estado para poder listar
     const data = await request.json()
+
+    let cleanUser = []
+
+    data.follow.forEach(follow => {
+      cleanUser = [...cleanUser, follow.user]
+    })
+    data.users = cleanUser
 
     if (data.users && data.status == "success") {
 
@@ -60,17 +73,17 @@ export const People = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Gente</h1>
+        <h1 className="content__title">Seguidores de "nombre usuario"</h1>
       </header>
-    <UserList users={users} 
-              getUsers={getUsers} 
-              following={following} 
-              setFollowing={setFollowing}
-              page={page}
-              setPage={setPage}
-              more={more}  
-              loading={loading}>
-              </UserList>
+      <UserList users={users}
+        getUsers={getUsers}
+        following={following}
+        setFollowing={setFollowing}
+        page={page}
+        setPage={setPage}
+        more={more}
+        loading={loading}>
+      </UserList>
     </>
   )
 }

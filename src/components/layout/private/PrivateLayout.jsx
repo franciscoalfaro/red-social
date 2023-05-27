@@ -5,9 +5,14 @@ import { Sidebar } from './Sidebar'
 import useAuth from '../../../hooks/useAuth'
 
 export const PrivateLayout = () => {
-    const { auth, loading } = useAuth()
+    const { auth, loading} = useAuth()
 
-    if (loading) {
+    if(typeof auth === 'undefined'){
+        localStorage.clear()
+
+        
+                
+    }if (loading) {
         return <h1>Cargando.....</h1>
 
     } else {
