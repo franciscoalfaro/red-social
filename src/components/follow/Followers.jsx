@@ -68,11 +68,6 @@ export const Followers = () => {
   }
 
 
-
-  //seguir y dejar de seguir
-
-
-
   return (
     <>
       <header className="content__header">
