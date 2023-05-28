@@ -11,8 +11,11 @@ export const GetProfile = async (userId, setState) => {
 
     })
     const data = await request.json()
+
     if(data.status=="success"){
       setState(data.user)
+      
     }
+    return data
 
   }

@@ -14,7 +14,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
         setPage(next)
         getUsers(next)
         console.log(page, users)
-      }
+    }
 
     //seguir y dejar de seguir
     const follow = async (userId) => {
@@ -51,6 +51,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
         if (data.status == "success") {
             //actualizar el estado de following
             let filtrado = following.filter(followingUserId => userId !== followingUserId)
+
             setFollowing(filtrado)
 
         }
@@ -61,40 +62,42 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
         <>
             <div className="content__posts">
                 {users.map(user => {
-                    if ((user._id !== auth._id)) {
-                        return (
-                            <article className="posts__post" key={user._id}>
-                                <div className="post__container">
-                                    <div className="post__image-user">
-                                        <Link to={"/social/perfil/"+user._id} className="post__image-link">
-                                            {user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
-                                            {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="post__user-img" alt="Foto de perfil"></img>}
-                                        </Link>
-                                    </div>
-                                    <div className="post__body">
-                                        <div className="post__user-info">
-                                            <Link to={"/social/perfil/"+user._id} className="user-info__name">{user.name} {user.surname}</Link>
-                                            <span className="user-info__divider"> | </span>
-                                            <Link to={"/social/perfil/"+user._id} className="user-info__create-date">{user.create_at}</Link>
-                                        </div>
-                                        <h4 className="post__content">{user.bio}</h4>
-                                    </div>
+                    return (
+                        <article className="posts__post" key={user._id}>
+                            <div className="post__container">
+                                <div className="post__image-user">
+                                    <Link to={"/social/perfil/" + user._id} className="post__image-link">
+                                        {user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
+                                        {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="post__user-img" alt="Foto de perfil"></img>}
+                                    </Link>
                                 </div>
-                                <div className="post__buttons">
-                                    {!following.includes(user._id) &&
-                                        <button className="post__button post__button--green" onClick={() => follow(user._id)}>
-                                            Seguir
-                                        </button>
-                                    }
-                                    {following.includes(user._id) &&
-                                        <button className="post__button" onClick={() => unfollow(user._id)}>
-                                            Dejar de Seguir
-                                        </button>
-                                    }
+                                <div className="post__body">
+                                    <div className="post__user-info">
+                                        <Link to={"/social/perfil/" + user._id} className="user-info__name">{user.name} {user.surname}</Link>
+                                        <span className="user-info__divider"> | </span>
+                                        <Link to={"/social/perfil/" + user._id} className="user-info__create-date">{user.create_at}</Link>
+                                    </div>
+                                    <h4 className="post__content">{user.bio}</h4>
                                 </div>
-                            </article>
-                        )
-                    }
+                            </div>
+                            {user._id != auth._id && 
+                            <div className="post__buttons">
+                                {!following.includes(user._id) &&
+                                    <button className="post__button post__button--green" onClick={() => follow(user._id)}>
+                                        Seguir
+                                    </button>
+                                }
+                                {following.includes(user._id) &&
+                                    <button className="post__button" onClick={() => unfollow(user._id)}>
+                                        Dejar de Seguir
+                                    </button>
+                                }
+                            
+                            </div>
+                            }
+                        </article>
+                    )
+
                 })}
 
 
