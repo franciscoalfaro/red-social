@@ -9,7 +9,7 @@ import { useForm } from '../../../hooks/useForm'
 export const Sidebar = () => {
     const { auth, counters } = useAuth()
     const { form, changed } = useForm()
-    const [stored, setStored ] = useState("not_stored")
+    const [stored, setStored] = useState("not_stored")
 
     const savePublication = async (e) => {
         e.preventDefault()
@@ -20,7 +20,7 @@ export const Sidebar = () => {
         let newPublication = form
         newPublication.user = auth._id
 
-        //hacer requesr
+        //hacer reques
         const request = await fetch(Global.url + "publication/save", {
             method: "POST",
             body: JSON.stringify(newPublication),
@@ -42,12 +42,12 @@ export const Sidebar = () => {
         //subir imag
         const fileInput = document.querySelector("#file")
 
-        if(data.status == "success" && fileInput.files[0]){
+        if (data.status == "success" && fileInput.files[0]) {
 
             const formaData = new FormData()
             formaData.append("file0", fileInput.files[0])
 
-            const uploadRequest = await fetch(Global.url+"publication/upload/"+ data.publicationStored._id,{
+            const uploadRequest = await fetch(Global.url + "publication/upload/" + data.publicationStored._id, {
                 method: "POST",
                 body: formaData,
                 headers: {
@@ -55,18 +55,18 @@ export const Sidebar = () => {
                 }
             })
             const uploadData = await uploadRequest.json()
-            if(uploadData.status == "success"){
+            if (uploadData.status == "success") {
                 setStored("stored")
-            }else{
+            } else {
                 setStored("error")
             }
-
-            if(data.status =="success" && uploadData.status =="success" ){
-                const myForm= document.querySelector("#publication-form")
-                myForm.reset()
-            }
-
         }
+        /*if(data.status =="success" && uploadData.status =="success" ){
+      const myForm= document.querySelector("#publication-form")
+      myForm.reset()
+  }*/
+        const myForm = document.querySelector("#publication-form")
+        myForm.reset()
     }
 
 
@@ -89,7 +89,7 @@ export const Sidebar = () => {
                         </div>
 
                         <div className="general-info__container-names">
-                            <Link to={"/social/perfil/"+auth._id} className="container-names__name">{auth.name} {auth.surname}</Link>
+                            <Link to={"/social/perfil/" + auth._id} className="container-names__name">{auth.name} {auth.surname}</Link>
                             <p className="container-names__nickname">{auth.nick}</p>
                             <p className="container-names__bio">{auth.bio}</p>
                         </div>
@@ -109,7 +109,7 @@ export const Sidebar = () => {
                             </Link>
                         </div>
                         <div className="stats__following">
-                            <Link to={"/social/perfil/"+auth._id} className="following__link">
+                            <Link to={"/social/perfil/" + auth._id} className="following__link">
                                 <span className="following__title">Publicaciones</span>
                                 <span className="following__number">{counters.publications}</span>
                             </Link>

@@ -4,6 +4,7 @@ import { GetProfile } from '../../helpers/GetProfile'
 import { Link, useParams } from 'react-router-dom'
 import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
+import { PublicationList } from '../publication/PublicationList'
 
 export const Profile = () => {
 
@@ -12,21 +13,24 @@ export const Profile = () => {
     const [counters, setCounters] = useState({})
     const [iFollows, setIFollows] = useState(false)
     const [publications, setPublications] = useState([])
+    const [more, setMore] = useState(true)
     const [page, setPage] = useState(1)
+    const [saved, setSaved] = useState('not_saved')
 
     const params = useParams()
 
     useEffect(() => {
         getDataUser()
         getCounter()
-        getPublications()
+        getPublications(1, true)
     }, [])
 
 
     useEffect(() => {
         getDataUser()
         getCounter()
-        getPublications()
+        setMore(true)
+        getPublications(1, true)
 
     }, [params])
 
@@ -92,7 +96,7 @@ export const Profile = () => {
     }
 
 
-    const getPublications = async (nextPage = 1) => {
+    const getPublications = async (nextPage = 1, newProfile = false) => {
         const request = await fetch(Global.url + "publication/user/" + params.userId + "/" + nextPage, {
             method: "GET",
             headers: {
@@ -107,19 +111,29 @@ export const Profile = () => {
         if (data.status == "success") {
             let newPublication = data.publications
 
-            if(publications.length >=1){
-                newPublication =[...publications, ...data.publications]
+            if (!newProfile && publications.length >= 1) {
+                newPublication = [...publications, ...data.publications]
+            }
+            if (newProfile) {
+                newPublication = data.publications
+                setMore(true)
+                setPage(1)
             }
             setPublications(newPublication)
+
+            if (!newProfile && publications.length >= (data.total - data.publications.length)) {
+                setMore(false)
+
+            }
+            if (data.page <= 0) {
+                setMore(false)
+            }
+        }if(data.status == "error"){
+            setSaved("error")
+            setMore(false)
         }
     }
 
-    const nextPage = ()=>{
-        let next = page + 1
-        setPage(next)
-        getPublications(next)
-
-    }
 
 
     return (
@@ -170,53 +184,16 @@ export const Profile = () => {
                     </div>
                 </div>
             </header>
+            <PublicationList 
+            publications={publications}
+            page={page}
+            setPage={setPage}
+            more={more}
+            setMore={setMore}
+            getPublications={getPublications}
 
+            ></PublicationList>
 
-
-
-            <div className="content__posts">
-                {publications.map(publication => {
-                    return (
-
-                        <article className="posts__post" key={publication.user._id}>
-
-                            <div className="post__container">
-
-                                <div className="post__image-user">
-                                <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
-                                        {publication.user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
-                                        {publication.user.image != 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="post__user-img" alt="Foto de perfil"></img>}
-                                    </Link>
-                                </div>
-
-                                <div className="post__body">
-
-                                    <div className="post__user-info">
-                                        <a href="#" className="user-info__name">{publication.user.name}  {publication.user.surname}</a>
-                                        <span className="user-info__divider"> | </span>
-                                        <a href="#" className="user-info__create-date">{publication.create_at}</a>
-                                    </div>
-
-                                    <h4 className="post__content">{publication.text}</h4>
-
-                                </div>
-
-                            </div>
-
-                            <div className="post__buttons">
-                                <a href="#" className="post__button">
-                                    <i className="fa-solid fa-trash-can"></i>
-                                </a>
-                            </div>
-                        </article>)
-                })}
-
-            </div>
-            <div className="content__container-btn">
-                <button className="content__btn-more-post" onClick={nextPage}>
-                    Ver mas publicaciones
-                </button>
-            </div>
         </>
     )
 }
