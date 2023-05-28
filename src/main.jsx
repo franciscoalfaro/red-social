@@ -8,6 +8,14 @@ import './assets/css/normalize.css';
 import './assets/css/responsive.css';
 import './assets/css/styles.css'
 
+//cargar configuracion de time-react ago
+import TimeAgo from 'javascript-time-ago'
+
+import es from 'javascript-time-ago/locale/es.json'
+import en from 'javascript-time-ago/locale/en.json'
+
+TimeAgo.addDefaultLocale(es)
+TimeAgo.addLocale(es)
 
 
 //arrancar app de react
