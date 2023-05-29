@@ -33,9 +33,6 @@ export const Register = () => {
             setSaved("error")
         }
 
-        const myForm = document.querySelector("#register-form")
-        myForm.reset()
-
     }
     return (
         <>
@@ -48,7 +45,7 @@ export const Register = () => {
             {saved =="warning"? <strong className='alert alert-warning'> Usuario ya existe </strong>: ""}
             {saved =="error"?   <strong className='alert alert-danger'>Error al crear el usuario</strong> : ""}
      
-                <form id="register-form" className='register-form' onSubmit={saveUser}>
+                <form className='register-form' onSubmit={saveUser}>
                     <div className='form-group'>
                         <label htmlFor='name'>Nombre</label>
                         <input type='text' name='name' onChange={changed}></input>
