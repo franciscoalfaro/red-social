@@ -145,7 +145,7 @@ export const Sidebar = () => {
 
                         <div className="stats__following">
                             <span className="following__title">Eliminar cuenta</span>
-                            <button onClick={deleteAcount} content__button content__button--rigth post__button>Eliminar cuenta</button>
+                            <button onClick={deleteAcount} className="content__button content__button--rigth post__button">Eliminar cuenta</button>
                         </div>
 
                     </div>
