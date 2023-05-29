@@ -10,6 +10,8 @@ export const Sidebar = () => {
     const { auth, counters } = useAuth()
     const { form, changed } = useForm()
     const [stored, setStored] = useState("not_stored")
+    const [user, setUser] = useState({})
+
 
     const savePublication = async (e) => {
         e.preventDefault()
@@ -64,7 +66,35 @@ export const Sidebar = () => {
 
         const myForm = document.querySelector("#publication-form")
         myForm.reset()
+
+
     }
+
+
+    //eliminar cuenta
+    const deleteAcount = async () => {
+        const request = await fetch(Global.url + "user/delete/" + auth._id, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token")
+            }
+
+        })
+        //si datos estan correctos se borra el local storage y redirige al login
+        const data = await request.json()
+        if (data.status == "success") {
+            localStorage.clear();
+            location.href = "/login"
+        } else {
+            setSaved("error")
+        }
+
+    }
+
+
+
+
 
 
     return (
@@ -111,6 +141,13 @@ export const Sidebar = () => {
                                 <span className="following__number">{counters.publications}</span>
                             </Link>
                         </div>
+
+
+                        <div className="stats__following">
+                            <span className="following__title">Eliminar cuenta</span>
+                            <button onClick={deleteAcount} content__button content__button--rigth post__button>Eliminar cuenta</button>
+                        </div>
+
                     </div>
                 </div>
 

@@ -52,11 +52,6 @@ export const People = () => {
   }
 
 
-
-  //seguir y dejar de seguir
-
-
-
   return (
     <>
       <header className="content__header">

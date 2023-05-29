@@ -189,6 +189,8 @@ export const Profile = () => {
                             <span className="following__number">{counters.publications >= 1 ? counters.publications : 0}</span>
                         </Link>
                     </div>
+
+
                 </div>
             </header>
             {saved =="error"? <strong className='alert alert-success'>No existen publicaciones</strong>:""}
