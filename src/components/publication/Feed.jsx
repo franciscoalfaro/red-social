@@ -18,6 +18,10 @@ export const Feed = () => {
         getPublications(1, false)
     }, [])
 
+    useEffect(() => {
+        getPublications(1, false)
+    }, [])
+
 
     const getPublications = async (nextPage = 1, showNew = false) => {
         if(showNew){

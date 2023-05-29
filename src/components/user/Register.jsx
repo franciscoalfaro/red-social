@@ -25,13 +25,16 @@ export const Register = () => {
 
         const data = await request.json()
 
-        if(data.status == "success"){
+        if(data.status === "success"){
             setSaved("saved")
-        }if(data.status == "warning"){
+        }if(data.status === "warning"){
             setSaved("warning")
-        }if(data.status == "error"){
+        }if(data.status === "error"){
             setSaved("error")
         }
+
+        const myForm = document.querySelector("#register-form")
+        myForm.reset()
 
     }
     return (
@@ -45,7 +48,7 @@ export const Register = () => {
             {saved =="warning"? <strong className='alert alert-warning'> Usuario ya existe </strong>: ""}
             {saved =="error"?   <strong className='alert alert-danger'>Error al crear el usuario</strong> : ""}
      
-                <form className='register-form' onSubmit={saveUser}>
+                <form id="register-form" className='register-form' onSubmit={saveUser}>
                     <div className='form-group'>
                         <label htmlFor='name'>Nombre</label>
                         <input type='text' name='name' onChange={changed}></input>

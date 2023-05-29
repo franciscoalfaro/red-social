@@ -477,3 +477,28 @@ button{
     color: white;
 }
 
+@media (max-width: 768px) {
+    .layout {
+      grid-template-areas:
+        "nav nav"
+        "content content"
+        "aside aside";
+      grid-template-columns: 1fr;
+      grid-template-rows: 60px auto auto;
+    }
+    
+    /* Otros estilos específicos para pantallas pequeñas */
+    /* ... */
+  }
+  
+  /* Estilos para pantallas de hasta 1024px de ancho */
+  @media (max-width: 1024px) {
+    /* Estilos específicos para pantallas medianas */
+    /* ... */
+  }
+  
+  /* Estilos para pantallas de más de 1024px de ancho */
+  @media (min-width: 1025px) {
+    /* Estilos específicos para pantallas grandes */
+    /* ... */
+  }
