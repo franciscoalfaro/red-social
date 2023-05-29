@@ -84,8 +84,9 @@ export const Sidebar = () => {
         //si datos estan correctos se borra el local storage y redirige al login
         const data = await request.json()
         if (data.status == "success") {
-            localStorage.clear();
             location.href = "/login"
+            localStorage.clear();
+            
         } else {
             setSaved("error")
         }
