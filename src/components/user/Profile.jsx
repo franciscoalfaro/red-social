@@ -91,6 +91,8 @@ export const Profile = () => {
         const data = await request.json()
         if (data.status == "success") {
             setIFollows(false)
+        }else if(data.status == "error"){
+            setSaved("error")
         }
 
     }
@@ -110,6 +112,7 @@ export const Profile = () => {
 
         if (data.status == "success") {
             let newPublication = data.publications
+            
 
             if (!newProfile && publications.length >= 1) {
                 newPublication = [...publications, ...data.publications]
@@ -123,12 +126,16 @@ export const Profile = () => {
 
             if (!newProfile && publications.length >= (data.total - data.publications.length)) {
                 setMore(false)
+                
+
 
             }
             if (data.page <= 0) {
                 setMore(false)
+           
             }
-        }if(data.status == "error"){
+            
+        }else if(data.status == "error"){
             setSaved("error")
             setMore(false)
         }
@@ -184,6 +191,7 @@ export const Profile = () => {
                     </div>
                 </div>
             </header>
+            {saved =="error"? <strong className='alert alert-success'>No existen publicaciones</strong>:""}
             <PublicationList 
             publications={publications}
             page={page}

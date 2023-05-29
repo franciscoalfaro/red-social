@@ -74,7 +74,6 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                                 </div>
                                 <div className="post__body">
                                     <div className="post__user-info">
-
                                         <Link to={"/social/perfil/" + user._id} className="user-info__name">{user.name} {user.surname}</Link>
                                         <span className="user-info__divider"> | </span>
                                         <Link to={"/social/perfil/" + user._id} className="user-info__create-date"><ReactTimeAgo date={new Date(user.create_at).getTime()}></ReactTimeAgo></Link>
@@ -82,20 +81,20 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                                     <h4 className="post__content">{user.bio}</h4>
                                 </div>
                             </div>
-                            {user._id != auth._id &&
-                                <div className="post__buttons">
-                                    {!following.includes(user._id) &&
-                                        <button className="post__button post__button--green" onClick={() => follow(user._id)}>
-                                            Seguir
-                                        </button>
-                                    }
-                                    {following.includes(user._id) &&
-                                        <button className="post__button" onClick={() => unfollow(user._id)}>
-                                            Dejar de Seguir
-                                        </button>
-                                    }
-
-                                </div>
+                            {user._id != auth._id && 
+                            <div className="post__buttons">
+                                {!following.includes(user._id) &&
+                                    <button className="post__button post__button--green" onClick={() => follow(user._id)}>
+                                        Seguir
+                                    </button>
+                                }
+                                {following.includes(user._id) &&
+                                    <button className="post__button" onClick={() => unfollow(user._id)}>
+                                        Dejar de Seguir
+                                    </button>
+                                }
+                            
+                            </div>
                             }
                         </article>
                     )

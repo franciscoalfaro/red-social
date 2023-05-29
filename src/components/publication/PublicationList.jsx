@@ -28,8 +28,12 @@ export const PublicationList = ({publications,page,setPage,more,setMore,getPubli
         getPublications(1, true)
         setPage(1)
         setMore(true)
+        
 
     }
+   
+    
+
 
     return (
         <>
@@ -53,7 +57,7 @@ export const PublicationList = ({publications,page,setPage,more,setMore,getPubli
                                     <div className="post__user-info">
                                         <a href="#" className="user-info__name">{publication.user.name}  {publication.user.surname}</a>
                                         <span className="user-info__divider"> | </span>
-                                        <a href="#" className="user-info__create-date"><ReactTimeAgo date={publication.create_at}></ReactTimeAgo></a>
+                                        <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
                                     </div>
 
                                     <h4 className="post__content">{publication.text}</h4>
