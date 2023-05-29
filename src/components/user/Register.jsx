@@ -25,11 +25,11 @@ export const Register = () => {
 
         const data = await request.json()
 
-        if(data.status === "success"){
+        if(data.status == "success"){
             setSaved("saved")
-        }if(data.status === "warning"){
+        }if(data.status == "warning"){
             setSaved("warning")
-        }if(data.status === "error"){
+        }if(data.status == "error"){
             setSaved("error")
         }
 
