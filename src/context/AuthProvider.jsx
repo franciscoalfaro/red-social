@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
 
         //comprobar token
         if (!token || !user) {
+            localStorage.clear();
             setLoading(false)
             return false
         }
