@@ -142,12 +142,12 @@ export const Sidebar = () => {
                                 <span className="following__number">{counters.publications}</span>
                             </Link>
                         </div>
-
-
+                        {auth.eliminado != true &&
                         <div className="stats__following">
-                            <span className="following__title">Eliminar cuenta</span>
-                            <button onClick={deleteAcount}>Eliminar cuenta</button>
+                            <span className="following__title"></span>
+                            <button onClick={deleteAcount}>desactivar cuenta</button>
                         </div>
+                        }
 
                     </div>
                 </div>

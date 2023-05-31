@@ -68,10 +68,6 @@ export const Feed = () => {
                 <button className="content__button" onClick={()=>getPublications(1, true)}>Mostrar nuevas</button>
             </header>
 
-
-
-
-
             <PublicationList 
             publications={publications}
             page={page}
@@ -79,7 +75,7 @@ export const Feed = () => {
             more={more}
             setMore={setMore}
             getPublications={getPublications}
-
+            
             ></PublicationList>
 
 

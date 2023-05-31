@@ -29,7 +29,6 @@ export const Login = () => {
 
 
         if (data.status == "success") {
-
             //persistir datos en el nav -- guardar datos de inicio de sesion
             localStorage.setItem("token", data.token)
             localStorage.setItem("user", JSON.stringify(data.user))
