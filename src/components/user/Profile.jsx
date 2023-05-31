@@ -39,6 +39,7 @@ export const Profile = () => {
         if (dataUser.following && dataUser.following._id)
             setIFollows(true)
 
+            console.log(dataUser)
     }
 
     const getCounter = async () => {
@@ -52,6 +53,7 @@ export const Profile = () => {
         const data = await request.json()
         if (data.following) {
             setCounters(data)
+            console.log(data)
 
         }
 
@@ -72,8 +74,10 @@ export const Profile = () => {
 
         const data = await request.json()
         if (data.status == "success") {
+            console.log(data)
             //actualizar el estado de following
             setIFollows(true)
+            
 
         }
     }
@@ -93,6 +97,8 @@ export const Profile = () => {
             setIFollows(false)
         }else if(data.status == "error"){
             setSaved("error")
+            
+            
         }
 
     }
@@ -138,6 +144,7 @@ export const Profile = () => {
         }else if(data.status == "error"){
             setSaved("error")
             setMore(false)
+            
         }
     }
 
@@ -176,12 +183,11 @@ export const Profile = () => {
                         </Link>
                     </div>
                     <div className="stats__following">
-                        <Link to={"/social/seguidores/" + user._id} className="following__link">
+                        <Link to={"/social/seguidores/" + auth._id} className="following__link">
                             <span className="following__title">Seguidores</span>
                             <span className="following__number">{counters.followed >= 1 ? counters.followed : 0}</span>
                         </Link>
                     </div>
-
 
                     <div className="stats__following">
                         <Link to={"/social/perfil/" + user._id} className="following__link">
