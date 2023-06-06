@@ -343,8 +343,8 @@ body {
 /*ESTILOS BARRA LATERAL*/
 .layout__aside {
     grid-area: aside;
-    margin-left: 2rem;
-    margin-right: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 
 }
 
