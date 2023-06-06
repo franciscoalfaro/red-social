@@ -147,7 +147,7 @@ export const Sidebar = () => {
                         {auth.eliminado != true &&
                         <div className="desactivar">
                             <span className="desactivar"></span>
-                            <button onClick={deleteAcount}>desactivar cuenta</button>
+                            <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
                         </div>
                         }
 

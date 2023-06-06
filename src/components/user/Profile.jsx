@@ -199,7 +199,7 @@ export const Profile = () => {
 
                 </div>
             </header>
-            {saved =="error"? <strong className='alert alert-success'>No existen publicaciones</strong>:""}
+            {saved =="error"? <strong className='alert alert-success'>No existen mas publicaciones</strong>:""}
             <PublicationList 
             publications={publications}
             page={page}

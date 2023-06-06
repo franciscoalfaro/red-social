@@ -57,7 +57,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
 
                                 <div className="post__body">
                                     <div className="post__user-info">
-                                        <a href="#" className="user-info__name">{publication.user.name}  {publication.user.surname}</a>
+                                        <Link to={"/social/perfil/" + publication.user._id} className="user-info__name">{publication.user.name}  {publication.user.surname}</Link>
                                         <span className="user-info__divider"> | </span>
                                         <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
                                     </div>
@@ -75,7 +75,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                             {auth._id == publication.user._id &&
 
                                 <div className="post__buttons">
-                                    <button onClick={() => deletePublication(publication._id)} className="post__button">
+                                    <button onClick={() => deletePublication(publication._id)} className="btn btn-danger">
                                         <i className="fa-solid fa-trash-can"></i>
                                     </button>
                                 </div>
