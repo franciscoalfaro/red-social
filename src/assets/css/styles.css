@@ -3,7 +3,7 @@
     --color-general-text: #333;
     --color-backgroud-navbar: #1dbb72;
     --color-text-navbar: rgb(255, 255, 255);
-    --color-hover-navbar: #808da7cb;
+    --color-hover-navbar: #ffffff00;
 
     --color-border-headers: #eee;
 
@@ -147,6 +147,10 @@ body {
 
 /*ESTILOS DE CONTENIDO*/
 
+.navbar {
+    background-color: #1dbb72 !important;
+    color: black !important;
+}
 .layout__content {
     grid-area: content;
     margin-left: 1rem;
@@ -425,7 +429,7 @@ body {
 }
 
 .following__link:hover>.following__number {
-    color: var(--color-hover-navbar);
+    color: var(--color-text-black);
 }
 
 
