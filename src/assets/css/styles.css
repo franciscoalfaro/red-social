@@ -150,6 +150,7 @@ body {
 .navbar {
     background-color: #1dbb72 !important;
     color: black !important;
+    margin-left: 16rem;
 }
 .layout__content {
     grid-area: content;
