@@ -5,14 +5,14 @@ import { Sidebar } from './Sidebar'
 import useAuth from '../../../hooks/useAuth'
 
 export const PrivateLayout = () => {
-    const { auth, loading} = useAuth()
+    const { auth, loading } = useAuth()
 
-    if(typeof auth === 'undefined'){
+    if (typeof auth === 'undefined') {
         localStorage.clear()
 
-        
-                
-    }if (loading) {
+
+
+    } if (loading) {
         return <h1>Cargando.....</h1>
 
     } else {
@@ -25,12 +25,18 @@ export const PrivateLayout = () => {
 
                 {/*contenido principal*/}
 
+
                 <section className="layout__content">
+                    
+                    <header className="content__header">
+                        <h1 className="content__title"></h1>
+                    </header>
                     {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
                 </section>
 
                 {/*barra lateral*/}
                 <Sidebar></Sidebar>
+
 
             </>
         )

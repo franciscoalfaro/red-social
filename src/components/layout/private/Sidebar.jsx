@@ -99,6 +99,8 @@ export const Sidebar = () => {
 
 
     return (
+        <>
+        <div className='LateralSidebar'></div>
         <aside className="layout__aside">
 
             <header className="aside__header">
@@ -143,8 +145,8 @@ export const Sidebar = () => {
                             </Link>
                         </div>
                         {auth.eliminado != true &&
-                        <div className="stats__following">
-                            <span className="following__title"></span>
+                        <div className="desactivar">
+                            <span className="desactivar"></span>
                             <button onClick={deleteAcount}>desactivar cuenta</button>
                         </div>
                         }
@@ -174,5 +176,6 @@ export const Sidebar = () => {
             </div>
 
         </aside>
+    </>
     )
 }

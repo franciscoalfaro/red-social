@@ -74,12 +74,8 @@ export const Feed = () => {
             setPage={setPage}
             more={more}
             setMore={setMore}
-            getPublications={getPublications}
-            
+            getPublications={getPublications}    
             ></PublicationList>
-
-
-
 
         </>
     )

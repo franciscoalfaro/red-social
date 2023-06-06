@@ -4,7 +4,7 @@ import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
 import ReactTimeAgo from 'react-time-ago'
 
-export const PublicationList = ({publications,page,setPage,more,setMore,getPublications}) => {
+export const PublicationList = ({ publications, page, setPage, more, setMore, getPublications }) => {
 
     const { auth } = useAuth()
 
@@ -28,18 +28,21 @@ export const PublicationList = ({publications,page,setPage,more,setMore,getPubli
         getPublications(1, true)
         setPage(1)
         setMore(true)
-        
+
 
     }
-   
-    
+
+
 
 
     return (
         <>
+
             <div className="content__posts">
+                
                 {publications.map(publication => {
                     return (
+
 
                         <article className="posts__post" key={publication._id}>
 
@@ -47,23 +50,24 @@ export const PublicationList = ({publications,page,setPage,more,setMore,getPubli
 
                                 <div className="post__image-user">
                                     <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
-                                        {publication.user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
-                                        {publication.user.image != 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="post__user-img" alt="Foto de perfil"></img>}
+                                        {publication.user.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
+                                        {publication.user.image != 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="container-avatar__img" alt="Foto de perfil"></img>}
                                     </Link>
                                 </div>
 
                                 <div className="post__body">
-
                                     <div className="post__user-info">
                                         <a href="#" className="user-info__name">{publication.user.name}  {publication.user.surname}</a>
                                         <span className="user-info__divider"> | </span>
                                         <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
                                     </div>
+                                </div>
 
-                                    <h4 className="post__content">{publication.text}</h4>
-
-                                    {publication.file && <img src={Global.url + "publication/media/" + publication.file}></img>}
-
+                                <div className='contenido__post-imagen'>
+                                    <div className='contenido__post-imagen'>
+                                        <h4 className="post__content">{publication.text}</h4>
+                                        {publication.file && <img src={Global.url + "publication/media/" + publication.file} className="post__user-image" ></img>}
+                                    </div>
                                 </div>
 
                             </div>
@@ -82,7 +86,7 @@ export const PublicationList = ({publications,page,setPage,more,setMore,getPubli
 
             </div>
 
-            { more &&
+            {more &&
                 <div className="content__container-btn">
                     <button className="content__btn-more-post" onClick={nextPage}>
                         Ver mas publicaciones

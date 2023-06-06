@@ -42,13 +42,18 @@ a:not([class]) {
     text-decoration-skip-ink: auto;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 img {
     max-width: 100%;
     display: block;
 }
 
 article>*+* {
-    margin-top: 1em;
+    margin-top: 0em;
 }
 
 input,
