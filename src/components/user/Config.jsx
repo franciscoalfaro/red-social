@@ -64,7 +64,7 @@ export const Config = () => {
       if (uploadData.status == "success" && uploadData.user) {
         delete uploadData.password
         setAuth({ ...auth, ...uploadData.user })
-        setTimeout(() => { window.location.reload() }, 0)
+        setTimeout(() => { window.location.reload() }, 0);
         setSaved("saved")
       } else {
         setSaved("error")
