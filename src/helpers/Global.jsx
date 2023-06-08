@@ -1,3 +1,3 @@
 export const Global={
-    url:"http://testsocial.org/api/"
+    url:"http://api.testsocial.org/api/"
 }
