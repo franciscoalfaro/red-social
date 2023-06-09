@@ -44,8 +44,23 @@ export const Config = () => {
     // subida de imagen
     const fileInput = document.querySelector("#file")
 
+    //validador de tamano de archivo si este es mayor a 2 mb muestra alerta..
 
-    if (data.status == "success" && fileInput.files[0]) {
+    let calbite = (fileInput.files[0].size)
+    let bytes = parseFloat(calbite);
+
+    let megabytes = bytes / (1024 * 1024);
+
+    let resultado = megabytes.toFixed(2)
+
+    if (resultado >= 2) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error',
+        text: 'Tamaño de imagen demasiado grande, no debe superar 2MB'
+      });
+
+    } else if (data.status == "success" && fileInput.files[0]) {
       //recoger imagen a subir
       const formData = new FormData()
 
@@ -80,6 +95,7 @@ export const Config = () => {
       </header>
 
       <div className="content__posts">
+
         {saved == "saved" ? <strong className='alert alert-success'>Datos actualizados de forma correcta</strong> : ""}
         {saved == "warning" ? <strong className='alert alert-warning'>Nick ya existe utiliza otro</strong> : ""}
         {saved == "error" ? <strong className='alert alert-danger'>Error al actualizar el usuario</strong> : ""}
