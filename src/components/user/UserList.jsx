@@ -14,7 +14,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
         let next = page + 1
         setPage(next)
         getUsers(next)
-       
+        console.log(page, users)
     }
 
     //seguir y dejar de seguir

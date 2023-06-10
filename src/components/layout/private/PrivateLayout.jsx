@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import useAuth from '../../../hooks/useAuth'
+import { Spiner } from './Spiner'
 
 export const PrivateLayout = () => {
     const { auth, loading } = useAuth()
@@ -13,7 +14,7 @@ export const PrivateLayout = () => {
 
 
     } if (loading) {
-        return <h1>Cargando.....</h1>
+         return<Spiner></Spiner>
 
     } else {
         return (

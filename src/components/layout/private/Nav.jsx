@@ -29,12 +29,7 @@ export const Nav = () => {
                                     <span className="menu-list__title">Gente</span>
                                 </NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink to={"/social/perfil/" + auth._id} className="list-end__link-image">
-                                    {auth.image == 'default.png' && <img src={avatar} className="list-end__img" alt="Foto de perfil"></img>}
-                                    {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="list-end__img" alt="Foto de perfil"></img>}
-                                </NavLink>
-                            </li>
+
                             <li className="nav-item">
                                 <NavLink to={"/social/perfil/" + auth._id} className="list-end__link">
                                     <span className="list-end__name">{auth.nick}</span>
@@ -52,6 +47,12 @@ export const Nav = () => {
                                     <span className="list-end__name">Cerrar sesion</span>
                                 </NavLink>
 
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to={"/social/perfil/" + auth._id} className="list-end__link-image">
+                                    {auth.image == 'default.png' && <img src={avatar} className="list-end__img" alt="Foto de perfil"></img>}
+                                    {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="list-end__img" alt="Foto de perfil"></img>}
+                                </NavLink>
                             </li>
                         </ul>
 

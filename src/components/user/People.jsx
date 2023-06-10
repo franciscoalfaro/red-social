@@ -63,7 +63,7 @@ export const People = () => {
               setFollowing={setFollowing}
               page={page}
               setPage={setPage}
-              more={more}  
+              more={more}
               loading={loading}>
               </UserList>
     </>
