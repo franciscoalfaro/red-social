@@ -70,87 +70,52 @@ export const Sidebar = () => {
 
     }
 
-
-    //eliminar cuenta
-    const deleteAcount = async () => {
-        const request = await fetch(Global.url + "user/delete/" + auth._id, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": localStorage.getItem("token")
-            }
-
-        })
-        //si datos estan correctos se borra el local storage y redirige al login
-        const data = await request.json()
-        if (data.status == "success") {
-            location.href = "/login"
-            localStorage.clear();
-            
-        } else {
-            setSaved("error")
-        }
-
-    }
-
-
-
-
-
-
     return (
         <>
-        <div className='LateralSidebar'></div>
-        <aside className="layout__aside">
+            <div className='LateralSidebar'></div>
+            <aside className="layout__aside">
 
-            <header className="aside__header">
-                <h1 className="aside__title">Hola, {auth.name}</h1>
-            </header>
+                <header className="aside__header">
+                    <h1 className="aside__title">Hola, {auth.name}</h1>
+                </header>
 
-            <div className="aside__container">
+                <div className="aside__container">
 
-                <div className="aside__profile-info">
+                    <div className="aside__profile-info">
 
-                    <div className="profile-info__general-info">
-                        <div className="general-info__container-avatar">
-                            {auth.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
-                            {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil"></img>}
+                        <div className="profile-info__general-info">
+                            <div className="general-info__container-avatar">
+                                {auth.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
+                                {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil"></img>}
 
+                            </div>
+
+                            <div className="general-info__container-names">
+                                <Link to={"/social/perfil/" + auth._id} className="container-names__name">{auth.name} {auth.surname}</Link>
+                                <p className="container-names__nickname">{auth.nick}</p>
+                                <p className="container-names__bio">{auth.bio}</p>
+                            </div>
                         </div>
 
-                        <div className="general-info__container-names">
-                            <Link to={"/social/perfil/" + auth._id} className="container-names__name">{auth.name} {auth.surname}</Link>
-                            <p className="container-names__nickname">{auth.nick}</p>
-                            <p className="container-names__bio">{auth.bio}</p>
-                        </div>
-                    </div>
-
-                    <div className="profile-info__stats">
-                        <div className="stats__following">
-                            <Link to={"/social/siguiendo/" + auth._id} className="following__link">
-                                <span className="following__title">Siguiendo</span>
-                                <span className="following__number">{counters.following}</span>
-                            </Link>
-                        </div>
-                        <div className="stats__following">
-                            <Link to={"/social/seguidores/" + auth._id} className="following__link">
-                                <span className="following__title">Seguidores</span>
-                                <span className="following__number">{counters.followed}</span>
-                            </Link>
-                        </div>
-                        <div className="stats__following">
-                            <Link to={"/social/perfil/" + auth._id} className="following__link">
-                                <span className="following__title">Publicaciones</span>
-                                <span className="following__number">{counters.publications}</span>
-                            </Link>
-                        </div>
-                        {auth.eliminado != true &&
-                        <div className="desactivar">
-                            <span className="desactivar"></span>
-                            <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
-                        </div>
-                        }
-
+                        <div className="profile-info__stats">
+                            <div className="stats__following">
+                                <Link to={"/social/siguiendo/" + auth._id} className="following__link">
+                                    <span className="following__title">Siguiendo</span>
+                                    <span className="following__number">{counters.following}</span>
+                                </Link>
+                            </div>
+                            <div className="stats__following">
+                                <Link to={"/social/seguidores/" + auth._id} className="following__link">
+                                    <span className="following__title">Mis Seguidores</span>
+                                    <span className="following__number">{counters.followed}</span>
+                                </Link>
+                            </div>
+                            <div className="stats__following">
+                                <Link to={"/social/perfil/" + auth._id} className="following__link">
+                                    <span className="following__title">Mis Publicaciones</span>
+                                    <span className="following__number">{counters.publications}</span>
+                                </Link>
+                            </div>
                     </div>
                 </div>
 
@@ -175,7 +140,7 @@ export const Sidebar = () => {
 
             </div>
 
-        </aside>
+        </aside >
     </>
     )
 }

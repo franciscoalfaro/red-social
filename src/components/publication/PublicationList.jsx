@@ -28,12 +28,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
         getPublications(1, true)
         setPage(1)
         setMore(true)
-
-
     }
-
-
-
 
     return (
         <>

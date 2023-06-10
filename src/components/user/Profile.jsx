@@ -19,6 +19,22 @@ export const Profile = () => {
 
     const params = useParams()
 
+
+    const [mostrarAlertaWarning, setMostrarAlertaWarning] = useState(true);
+
+    useEffect(() => {
+        if (user.eliminado === true && mostrarAlertaWarning) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error',
+                text: 'Cuenta se encuentra inactiva'
+            }).then(() => {
+                setMostrarAlertaWarning(false);
+                window.location.href = '/social';
+            });
+        }
+    }, [user, mostrarAlertaWarning]);
+
     useEffect(() => {
         getDataUser()
         getCounter()
@@ -39,7 +55,7 @@ export const Profile = () => {
         if (dataUser.following && dataUser.following._id)
             setIFollows(true)
 
-            console.log(dataUser)
+        console.log(dataUser)
     }
 
     const getCounter = async () => {
@@ -77,7 +93,7 @@ export const Profile = () => {
             console.log(data)
             //actualizar el estado de following
             setIFollows(true)
-            
+
 
         }
     }
@@ -95,10 +111,10 @@ export const Profile = () => {
         const data = await request.json()
         if (data.status == "success") {
             setIFollows(false)
-        }else if(data.status == "error"){
+        } else if (data.status == "error") {
             setSaved("error")
-            
-            
+
+
         }
 
     }
@@ -115,10 +131,11 @@ export const Profile = () => {
         })
 
         const data = await request.json()
+        console.log('asdsd',data)
 
         if (data.status == "success") {
             let newPublication = data.publications
-            
+
 
             if (!newProfile && publications.length >= 1) {
                 newPublication = [...publications, ...data.publications]
@@ -132,28 +149,49 @@ export const Profile = () => {
 
             if (!newProfile && publications.length >= (data.total - data.publications.length)) {
                 setMore(false)
-                
+
 
 
             }
             if (data.page <= 0) {
                 setMore(false)
-           
+
             }
-            
-        }else if(data.status == "error"){
+
+        } else if (data.status == "error") {
             setSaved("error")
             setMore(false)
-            
+
         }
+    }
+
+    //eliminar cuenta
+    const deleteAcount = async () => {
+        const request = await fetch(Global.url + "user/delete/" + auth._id, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token")
+            }
+
+        })
+        //si datos estan correctos se borra el local storage y redirige al login
+        const data = await request.json()
+        if (data.status == "success") {
+            location.href = "/login"
+            localStorage.clear();
+
+        } else {
+            setSaved("error")
+        }
+
     }
 
 
 
     return (
         <>
-
-            <header className="aside__profile-info">
+            <header className="content-info">
                 <div className="profile-info__general-info">
                     <div className="general-info__container-avatar">
                         {user.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
@@ -197,16 +235,46 @@ export const Profile = () => {
                     </div>
 
 
+                    <div className="stats__following">
+                        {user._id == auth._id && (
+                            <div className="following__link">
+                                <span className="following__title"></span>
+                                <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="stats__following">
+                        {user.eliminado !== true ? (
+                            <div className="following__link">
+                                <span className="following__title"></span>
+                                <h1>cuenta activa</h1>
+                            </div>
+
+                        ) : (
+                            <div className="following__link">
+                                <span className="following__title"></span>
+                                <h1>cuenta desactivada</h1>
+                            </div>
+
+                        )}
+                    </div>
+
+
+
+
+
                 </div>
-            </header>
-            {saved =="error"? <strong className='alert alert-success'>No existen mas publicaciones</strong>:""}
-            <PublicationList 
-            publications={publications}
-            page={page}
-            setPage={setPage}
-            more={more}
-            setMore={setMore}
-            getPublications={getPublications}
+            </header >
+            {saved == "error" ? <strong className='alert alert-success'>No existen mas publicaciones</strong> : ""
+            }
+            <PublicationList
+                publications={publications}
+                page={page}
+                setPage={setPage}
+                more={more}
+                setMore={setMore}
+                getPublications={getPublications}
 
             ></PublicationList>
 

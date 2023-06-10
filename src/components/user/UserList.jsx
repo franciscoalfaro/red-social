@@ -79,7 +79,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                                         <span className="user-info__divider"> | </span>
                                         <Link to={"/social/perfil/" + user._id} className="user-info__create-date"><ReactTimeAgo date={new Date(user.create_at).getTime()}></ReactTimeAgo></Link>
                                     </div>
-                                    <h4 className="post__content">{user.bio}</h4>
+                                    <h4 className="post__content_bio">{user.bio}</h4>
                                 </div>
                             </div>
                             {user._id != auth._id &&
