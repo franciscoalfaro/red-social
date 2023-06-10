@@ -14,7 +14,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
         let next = page + 1
         setPage(next)
         getUsers(next)
-        console.log(page, users)
+       
     }
 
     //seguir y dejar de seguir
@@ -84,12 +84,12 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                             </div>
                             {user._id != auth._id &&
                                 <div className="post__buttons">
-                                    {!following.includes(user._id) &&
+                                    {!following.includes(user._id) && user.eliminado !== true &&
                                         <button className="post__button post__button--green" onClick={() => follow(user._id)}>
                                             Seguir
                                         </button>
                                     }
-                                    {following.includes(user._id) &&
+                                    {following.includes(user._id) && user.eliminado !== true &&
                                         <button className="post__button" onClick={() => unfollow(user._id)}>
                                             Dejar de Seguir
                                         </button>

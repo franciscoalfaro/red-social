@@ -30,7 +30,7 @@ export const Profile = () => {
                 text: 'Cuenta se encuentra inactiva'
             }).then(() => {
                 setMostrarAlertaWarning(false);
-                window.location.href = '/social';
+                location.href = "/social/gente";
             });
         }
     }, [user, mostrarAlertaWarning]);
@@ -55,7 +55,7 @@ export const Profile = () => {
         if (dataUser.following && dataUser.following._id)
             setIFollows(true)
 
-        console.log(dataUser)
+   
     }
 
     const getCounter = async () => {
@@ -69,7 +69,7 @@ export const Profile = () => {
         const data = await request.json()
         if (data.following) {
             setCounters(data)
-            console.log(data)
+           
 
         }
 
@@ -90,7 +90,7 @@ export const Profile = () => {
 
         const data = await request.json()
         if (data.status == "success") {
-            console.log(data)
+
             //actualizar el estado de following
             setIFollows(true)
 
@@ -131,7 +131,7 @@ export const Profile = () => {
         })
 
         const data = await request.json()
-        console.log('asdsd',data)
+
 
         if (data.status == "success") {
             let newPublication = data.publications
