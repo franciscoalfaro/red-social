@@ -244,26 +244,6 @@ export const Profile = () => {
                         )}
                     </div>
 
-                    <div className="stats__following">
-                        {user.eliminado !== true ? (
-                            <div className="following__link">
-                                <span className="following__title"></span>
-                                <h1>cuenta activa</h1>
-                            </div>
-
-                        ) : (
-                            <div className="following__link">
-                                <span className="following__title"></span>
-                                <h1>cuenta desactivada</h1>
-                            </div>
-
-                        )}
-                    </div>
-
-
-
-
-
                 </div>
             </header >
             {saved == "error" ? <strong className='alert alert-success'>No existen mas publicaciones</strong> : ""
