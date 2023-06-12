@@ -221,7 +221,7 @@ export const Profile = () => {
                         </Link>
                     </div>
                     <div className="stats__following">
-                        <Link to={"/social/seguidores/" + auth._id} className="following__link">
+                        <Link to={"/social/seguidores/" + user._id} className="following__link">
                             <span className="following__title">Seguidores</span>
                             <span className="following__number">{counters.followed >= 1 ? counters.followed : 0}</span>
                         </Link>
