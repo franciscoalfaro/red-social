@@ -138,6 +138,12 @@
     max-height: 300px;
     width: auto; /* Para mantener la proporción de aspecto original */
   }
+
+  .card-img-profile {
+    width: 100%;
+    border-radius: 2px;
+    position: absolute;
+  }
   
   
   
