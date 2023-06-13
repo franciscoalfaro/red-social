@@ -62,50 +62,42 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
     return (
         <>
 
-            <div className="content__posts">
+
+            <div className="row mt-4">
                 {users.map(user => {
                     return (
-                        <article className="posts__post" key={user._id}>
-                            <div className="post__container">
-                                <div className="post__image-user">
-                                    <Link to={"/social/perfil/" + user._id} className="post__image-link">
-                                        {user.image == 'default.png' && <img src={avatar} className="post__user-img" alt="Foto de perfil"></img>}
-                                        {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="post__user-img" alt="Foto de perfil"></img>}
-                                    </Link>
-                                </div>
-                                <div className="post__body">
-                                    <div className="post__user-info">
-                                        <Link to={"/social/perfil/" + user._id} className="user-info__name">{user.name} {user.surname}</Link>
-                                        <span className="user-info__divider"> | </span>
-                                        <Link to={"/social/perfil/" + user._id} className="user-info__create-date"><ReactTimeAgo date={new Date(user.create_at).getTime()}></ReactTimeAgo></Link>
+                          <div className="col-md-4" key={user._id}>
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="text-center">
+                                        <Link to={"/social/perfil/" + user._id} className="post__image-link">
+                                            {user.image == 'default.png' && <img src={avatar} className="rounded-circle img-thumbnail profile-image" alt="Foto de perfil"></img>}
+                                            {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="rounded-circle img-thumbnail profile-image" alt="Foto de perfil"></img>}
+                                        </Link>
                                     </div>
-                                    <h4 className="post__content_bio">{user.bio}</h4>
+                                    <h5>{user.name}</h5>
+                                    <p className="card-text">{user.bio}</p>
+                                    <Link to={"/social/perfil/" + user._id} className="card-title">{user.name} {user.surname}</Link>
+                                    <span className="user-info__divider"> | </span>
+                                    <Link to={"/social/perfil/" + user._id} className="user-info__create-date"><ReactTimeAgo date={new Date(user.create_at).getTime()}></ReactTimeAgo></Link>
+                                    {user._id != auth._id &&
+                                        <div className="">
+                                            {!following.includes(user._id) && user.eliminado !== true &&
+                                                <button type="button" className="btn btn-primary" onClick={() => follow(user._id)}>Seguir</button>
+
+                                            }
+                                            {following.includes(user._id) && user.eliminado !== true &&
+                                                <button type="button" className="btn btn-danger" onClick={() => unfollow(user._id)}>Dejar de Seguir</button>
+                                            }
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                            {user._id != auth._id &&
-                                <div className="post__buttons">
-                                    {!following.includes(user._id) && user.eliminado !== true &&
-                                        <button className="post__button post__button--green" onClick={() => follow(user._id)}>
-                                            Seguir
-                                        </button>
-                                    }
-                                    {following.includes(user._id) && user.eliminado !== true &&
-                                        <button className="post__button" onClick={() => unfollow(user._id)}>
-                                            Dejar de Seguir
-                                        </button>
-                                    }
-                                    
-                                </div>
-                            }
-                        </article>
+                        </div>
                     )
-
                 })}
-
-
-
             </div>
-            <br></br>
+
             {loading ? "Cargando" : ""}
             {more &&
                 <div className="content__container-btn">
@@ -114,6 +106,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                     </button>
                 </div>
             }
+
         </>
 
     )

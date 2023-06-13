@@ -55,7 +55,7 @@ export const Profile = () => {
         if (dataUser.following && dataUser.following._id)
             setIFollows(true)
 
-   
+
     }
 
     const getCounter = async () => {
@@ -69,7 +69,7 @@ export const Profile = () => {
         const data = await request.json()
         if (data.following) {
             setCounters(data)
-           
+
 
         }
 
@@ -191,61 +191,61 @@ export const Profile = () => {
 
     return (
         <>
-            <header className="content-info">
-                <div className="profile-info__general-info">
-                    <div className="general-info__container-avatar">
-                        {user.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
-                        {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="container-avatar__img" alt="Foto de perfil"></img>}
-                    </div>
 
-                    <div className="general-info__container-names">
-                        <div className="container-names__name">
-                            <h1>{user.name} {user.surname}</h1>
-                        </div>
-                        <h2 className="container-names__nickname"> {user.nick}</h2>
-                        <p>{user.bio}</p>
+            <div className="card">
+                <div className="card-body publication">
+                    <h5 className="card-title">Mis Publicaciones</h5>
+                    <p className="card-text">Contenido central</p>
+                </div>
+            </div>
+
+
+            <div className="col-md-12">
+                <div className="card">
+                    {user.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
+                    {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
+                    <div className="card-body">
+                        <h1 className="card-title">{user.name} {user.surname}</h1>
+                        <p className="card-text">{user.nick}</p>
+                        <p className="card-text">{user.bio}</p>
                         {user._id != auth._id &&
                             (iFollows ?
                                 <button onClick={() => unfollow(user._id)} className="btn btn-danger">Dejar de seguir</button>
                                 : <button onClick={() => follow(user._id)} className="btn btn-success">Seguir</button>
                             )}
-                    </div>
-                </div>
-
-                <div className="profile-info__stats">
-
-                    <div className="stats__following">
-                        <Link to={"/social/siguiendo/" + user._id} className="following__link">
-                            <span className="following__title">Siguiendo</span>
-                            <span className="following__number">{counters.following >= 1 ? counters.following : 0}</span>
-                        </Link>
-                    </div>
-                    <div className="stats__following">
-                        <Link to={"/social/seguidores/" + user._id} className="following__link">
-                            <span className="following__title">Seguidores</span>
-                            <span className="following__number">{counters.followed >= 1 ? counters.followed : 0}</span>
-                        </Link>
-                    </div>
-
-                    <div className="stats__following">
-                        <Link to={"/social/perfil/" + user._id} className="following__link">
-                            <span className="following__title">Publicaciones</span>
-                            <span className="following__number">{counters.publications >= 1 ? counters.publications : 0}</span>
-                        </Link>
-                    </div>
-
-
-                    <div className="stats__following">
-                        {user._id == auth._id && (
-                            <div className="following__link">
-                                <span className="following__title"></span>
-                                <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
+                        <div className="d-flex justify-content-between">
+                            <div className="section">
+                                <h6>Siguiendo</h6>
+                                <Link to={"/social/siguiendo/" + user._id} className="following__link">
+                                    <span className="">{counters.following >= 1 ? counters.following : 0}</span>
+                                </Link>
                             </div>
-                        )}
+                            <div className="section">
+                                <h6>Seguidores</h6>
+                                <Link to={"/social/seguidores/" + auth._id} className="following__link">
+                                    <span className="">{counters.followed >= 1 ? counters.followed : 0}</span>
+                                </Link>
+                            </div>
+                            <div className="section">
+                                <h6>Publicaciones</h6>
+                                <Link to={"/social/perfil/" + user._id} className="following__link">
+                                    <span className="following__number">{counters.publications >= 1 ? counters.publications : 0}</span>
+                                </Link>
+                            </div>
+                            <div className="section">
+                                <h6></h6>
+                                {user._id == auth._id && (
+                                    <div className="following__link">
+                                        <span className="following__title"></span>
+                                        <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-            </header >
+            </div>
+
             {saved == "error" ? <strong className='alert alert-success'>No existen mas publicaciones</strong> : ""
             }
             <PublicationList

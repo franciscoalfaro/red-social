@@ -4,9 +4,6 @@ import App from './App.jsx'
 
 //import assets 
 import './assets/fonts/fontawesome-free-6.1.2-web/css/all.css';
-import './assets/css/normalize.css';
-import './assets/css/responsive.css';
-import './assets/css/styles.css'
 
 //cargar configuracion de time-react ago
 import TimeAgo from 'javascript-time-ago'

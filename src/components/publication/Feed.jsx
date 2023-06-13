@@ -22,7 +22,7 @@ export const Feed = () => {
     }, [])
 
     const getPublications = async (nextPage = 1, showNew = false) => {
-        if(showNew){
+        if (showNew) {
             setPublications([])
             setPage(1)
             nextPage = 1
@@ -44,7 +44,7 @@ export const Feed = () => {
             if (!showNew && publications.length >= 1) {
                 newPublication = [...publications, ...data.publications]
             }
-            
+
             setPublications(newPublication)
 
             if (!showNew && publications.length >= (data.total - data.publications.length)) {
@@ -54,7 +54,7 @@ export const Feed = () => {
             if (data.page <= 0) {
                 setMore(false)
             }
-        }if(data.status == "error"){
+        } if (data.status == "error") {
             setSaved("error")
             setMore(false)
         }
@@ -62,18 +62,20 @@ export const Feed = () => {
 
     return (
         <>
-            <header className="content__header">
-                <h1 className="content__title">Timeline</h1>
-                <button className="content__button" onClick={()=>getPublications(1, true)}>Mostrar nuevas</button>
-            </header>
-
-            <PublicationList 
-            publications={publications}
-            page={page}
-            setPage={setPage}
-            more={more}
-            setMore={setMore}
-            getPublications={getPublications}    
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">TimeLine</h5>
+                    <p className="card-text">Contenido central</p>
+                    <button className="btn btn-success" onClick={() => getPublications(1, true)}>Mostrar nuevas</button>
+                </div>
+            </div>
+            <PublicationList
+                publications={publications}
+                page={page}
+                setPage={setPage}
+                more={more}
+                setMore={setMore}
+                getPublications={getPublications}
             ></PublicationList>
 
         </>

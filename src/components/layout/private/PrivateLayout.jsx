@@ -14,30 +14,30 @@ export const PrivateLayout = () => {
 
 
     } if (loading) {
-         return<Spiner></Spiner>
+        return <Spiner></Spiner>
 
     } else {
         return (
             <>
                 {/*Layout*/}
                 <Header></Header>
+                <div className="container mt-4">
+                <div className="row"> 
+                    <Sidebar></Sidebar>
 
-                {/*cabecera y navegacion*/}
 
-                {/*contenido principal*/}
+                        {/*cabecera y navegacion*/}
 
+                        {/*contenido principal*/}
+                        <div className="col-md-9">
 
-                <section className="layout__content">
-                    
-                    <header className="content__header">
-                        <h1 className="content__title"></h1>
-                    </header>
-                    {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
-                </section>
+                        {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
 
-                {/*barra lateral*/}
-                <Sidebar></Sidebar>
+                        {/*barra lateral*/}
+                       </div>
+                    </div>
 
+                </div>
 
             </>
         )

@@ -32,62 +32,51 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
 
     return (
         <>
-
-            <div className="content__posts">
-                
+            <div className="row justify-content-center custom-content">
                 {publications.map(publication => {
                     return (
+                        <div className="col-md-10" key={publication._id}>
+                            <div className="row mb-4">
+                                <div className="col-md-12">
+                                    <div className="card h-100">
+                                        <div className="card-body">
+                                            <div className="d-flex align-items-center">
+                                                <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
+                                                    {publication.user.image === 'default.png' && <img src={avatar} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
+                                                    {publication.user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
+                                                </Link>
 
+                                                <div className="ml-3">
+                                                    <Link to={"/social/perfil/" + publication.user._id} className="mb-0">{publication.user.name}  {publication.user.surname}</Link>
+                                                    <span className="user-info__divider"> | </span>
+                                                    <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
+                                                </div>
+                                            </div>
+                                            <p className="card-text">{publication.text}</p>
+                                            <div className="custom-image">
+                                                {publication.file && <img src={Global.url + "publication/media/" + publication.file} alt="Imagen de la publicación" className="img-fluid custom-img" />}
+                                            </div>
 
-                        <article className="posts__post" key={publication._id}>
-
-                            <div className="post__container">
-
-                                <div className="post__image-user">
-                                    <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
-                                        {publication.user.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
-                                        {publication.user.image != 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="container-avatar__img" alt="Foto de perfil"></img>}
-                                    </Link>
-                                </div>
-
-                                <div className="post__body">
-                                    <div className="post__user-info">
-                                        <Link to={"/social/perfil/" + publication.user._id} className="user-info__name">{publication.user.name}  {publication.user.surname}</Link>
-                                        <span className="user-info__divider"> | </span>
-                                        <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
+                                            {auth._id === publication.user._id &&
+                                                <button onClick={() => deletePublication(publication._id)} type="button" className="custom-btn btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div className='contenido__post-imagen'>
-                                    <div className='contenido__post-imagen'>
-                                        <h4 className="post__content">{publication.text}</h4>
-                                        {publication.file && <img src={Global.url + "publication/media/" + publication.file} className="post__user-image" ></img>}
-                                    </div>
-                                </div>
-
                             </div>
-
-                            {auth._id == publication.user._id &&
-
-                                <div className="post__buttons">
-                                    <button onClick={() => deletePublication(publication._id)} className="btn btn-danger">
-                                        <i className="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            }
-                        </article>)
-
+                        </div>
+                    );
                 })}
-
             </div>
 
             {more &&
-                <div className="content__container-btn">
-                    <button className="content__btn-more-post" onClick={nextPage}>
+                <div className="">
+                    <button type="button" className="btn btn-success" onClick={nextPage}>
                         Ver mas publicaciones
                     </button>
                 </div>
             }
+
 
         </>
     )

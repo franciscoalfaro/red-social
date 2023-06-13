@@ -58,6 +58,7 @@ export const Sidebar = () => {
             })
             const uploadData = await uploadRequest.json()
             if (uploadData.status == "success") {
+                console.log(uploadData)
                 setStored("stored")
             } else {
                 setStored("error")
@@ -72,75 +73,59 @@ export const Sidebar = () => {
 
     return (
         <>
-            <div className='LateralSidebar'></div>
-            <aside className="layout__aside">
 
-                <header className="aside__header">
-                    <h1 className="aside__title">Hola, {auth.name}</h1>
-                </header>
-
-                <div className="aside__container">
-
-                    <div className="aside__profile-info">
-
-                        <div className="profile-info__general-info">
-                            <div className="general-info__container-avatar">
-                                {auth.image == 'default.png' && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"></img>}
-                                {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil"></img>}
-
-                            </div>
-
-                            <div className="general-info__container-names">
-                                <Link to={"/social/perfil/" + auth._id} className="container-names__name">{auth.name} {auth.surname}</Link>
-                                <p className="container-names__nickname">{auth.nick}</p>
-                                <p className="container-names__bio">{auth.bio}</p>
-                            </div>
-                        </div>
-
-                        <div className="profile-info__stats">
-                            <div className="stats__following">
+            
+            <div className="col-md-3">
+                <div className="card">
+                    {auth.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
+                    {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
+                    <div className="card-body">
+                        <Link to={"/social/perfil/" + auth._id} className="card-title">{auth.name} {auth.surname}</Link>
+                        <p className="card-text">{auth.nick}</p>
+                        <p className="card-text">{auth.bio}</p>
+                        <div className="d-flex justify-content-between">
+                            <div className="section">
+                                <h6>Siguiendo</h6>
                                 <Link to={"/social/siguiendo/" + auth._id} className="following__link">
-                                    <span className="following__title">Siguiendo</span>
-                                    <span className="following__number">{counters.following}</span>
+                                    <span className="">{counters.following}</span>
                                 </Link>
                             </div>
-                            <div className="stats__following">
+                            <div className="section">
+                                <h6>Seguidores</h6>
                                 <Link to={"/social/seguidores/" + auth._id} className="following__link">
-                                    <span className="following__title">Mis Seguidores</span>
-                                    <span className="following__number">{counters.followed}</span>
+                                    <span className="">{counters.followed}</span>
                                 </Link>
                             </div>
-                            <div className="stats__following">
+                            <div className="section">
+                                <h6>Publicaciones</h6>
                                 <Link to={"/social/perfil/" + auth._id} className="following__link">
-                                    <span className="following__title">Mis Publicaciones</span>
                                     <span className="following__number">{counters.publications}</span>
                                 </Link>
                             </div>
+                        </div>
                     </div>
                 </div>
 
-
-                <div className="aside__container-form">
+                <div className="card mt-4">
                     {stored == "stored" ? <strong className='alert alert-success'>Publicacion realizada correctamente</strong> : ""}
                     {stored == "error" ? <strong className='alert alert-warning'>error al realizar publicacion intenta nuevamente</strong> : ""}
 
-                    <form id="publication-form" className="container-form__form-post" onSubmit={savePublication}>
-                        <div className="form-post__inputs">
-                            <label htmlFor="text" className="form-post__label">¿Que estas pesando hoy?</label>
-                            <textarea name="text" className="form-post__textarea" onChange={changed}></textarea>
-                        </div>
-                        <div className="form-post__inputs">
-                            <label htmlFor="file" className="form-post__label">Sube tu foto</label>
-                            <input type="file" name="file0" id="file" className="form-post__image"></input>
-                        </div>
-                        <input type="submit" value="Enviar" className="form-post__btn-submit"></input>
-                    </form>
-
+                    <div className="card-body">
+                        <h5 className="card-title">Nueva Publicación</h5>
+                        <form id="publication-form" onSubmit={savePublication}>
+                            <div className="mb-3">
+                                <label htmlFor="text" className="form-post__label">¿Que estas pesando hoy?</label>
+                                <textarea name="text" className="form-control" placeholder="Escribe tu publicación" onChange={changed}></textarea>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="file">Subir imagen:</label>
+                                <input type="file" name="file0" id="file" className="form-control"></input>
+                            </div>
+                            <input type="submit" value="Publicar" className="btn btn-success"></input>
+                        </form>
+                    </div>
                 </div>
-
             </div>
-
-        </aside >
-    </>
+        </>
     )
 }
