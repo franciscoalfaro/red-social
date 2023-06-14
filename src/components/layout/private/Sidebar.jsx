@@ -22,7 +22,7 @@ export const Sidebar = () => {
         let newPublication = form
         newPublication.user = auth._id
 
-        //hacer reques
+        //hacer request
         const request = await fetch(Global.url + "publication/save", {
             method: "POST",
             body: JSON.stringify(newPublication),
@@ -108,6 +108,10 @@ export const Sidebar = () => {
             });
         }
 
+        if(data==null){
+            console.log("form vacio")
+        }
+
 
         const myForm = document.querySelector("#publication-form")
         myForm.reset()
@@ -159,7 +163,7 @@ export const Sidebar = () => {
                         <form id="publication-form" onSubmit={savePublication}>
                             <div className="mb-3">
                                 <label htmlFor="text" className="form-post__label">¿Que estas pesando hoy?</label>
-                                <textarea name="text" className="form-control" placeholder="Escribe tu publicación" onChange={changed}></textarea>
+                                <textarea name="text" className="form-control" placeholder="Escribe tu publicación" onChange={changed} required onInvalid={(e) => e.target.setCustomValidity('Por favor, ingresa al menos el título')}></textarea>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="file">Subir imagen:</label>
