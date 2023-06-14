@@ -43,34 +43,68 @@ export const Config = () => {
 
     // subida de imagen al servidor
     const fileInput = document.querySelector("#file0");
+
     if (data.status == "success" && fileInput.files[0]) {
       // Recoger imagen a subir
-      const compressedFile = await compressImage(fileInput.files[0], 800, 600, 0.7);
-
-      // Crear FormData con la imagen comprimida
       const formData = new FormData();
-      formData.append('file0', compressedFile);
+      formData.append('file0', fileInput.files[0]);
 
-      // Peticion para enviar el fichero
-      const uploadRequest = await fetch(Global.url + "user/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Authorization": token
+      // Verificar la extensión del archivo
+      const fileName = fileInput.files[0].name;
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+
+      if (fileExtension === 'gif') {
+        // Si la extensión es .gif, subir el archivo sin comprimir
+        const uploadRequest = await fetch(Global.url + "user/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Authorization": token
+          }
+        });
+
+        const uploadData = await uploadRequest.json();
+        console.log(uploadData);
+
+        if (uploadData.status == "success" && uploadData.user) {
+          delete uploadData.password;
+          setAuth({ ...auth, ...uploadData.user });
+          setTimeout(() => { window.location.reload() }, 0);
+          setSaved("saved");
+        } else {
+          setSaved("error");
         }
-      });
-      const uploadData = await uploadRequest.json();
-      console.log(uploadData);
-
-      if (uploadData.status == "success" && uploadData.user) {
-        delete uploadData.password;
-        setAuth({ ...auth, ...uploadData.user });
-        setTimeout(() => { window.location.reload() }, 0);
-        setSaved("saved");
       } else {
-        setSaved("error");
+        // Si no es .gif, comprimir el archivo antes de subirlo
+        const compressedFile = await compressImage(fileInput.files[0]);
+
+        // Crear un nuevo FormData con el archivo comprimido
+        const compressedFormData = new FormData();
+        compressedFormData.append('file0', compressedFile);
+
+        // Subir el archivo comprimido
+        const uploadRequest = await fetch(Global.url + "user/upload", {
+          method: "POST",
+          body: compressedFormData,
+          headers: {
+            "Authorization": token
+          }
+        });
+
+        const uploadData = await uploadRequest.json();
+        console.log(uploadData);
+
+        if (uploadData.status == "success" && uploadData.user) {
+          delete uploadData.password;
+          setAuth({ ...auth, ...uploadData.user });
+          setTimeout(() => { window.location.reload() }, 0);
+          setSaved("saved");
+        } else {
+          setSaved("error");
+        }
       }
     }
+
 
     // Función para comprimir la imagen
     async function compressImage(file, maxWidth, maxHeight, quality) {
