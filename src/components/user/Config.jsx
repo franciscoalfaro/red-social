@@ -41,52 +41,77 @@ export const Config = () => {
     }
 
 
-    // subida de imagen
-    const fileInput = document.querySelector("#file0")
+    // subida de imagen al servidor
+    const fileInput = document.querySelector("#file0");
+    if (data.status == "success" && fileInput.files[0]) {
+      // Recoger imagen a subir
+      const compressedFile = await compressImage(fileInput.files[0], 800, 600, 0.7);
 
-    let calbite = (fileInput.files[0].size)
-    let bytes = parseFloat(calbite);
+      // Crear FormData con la imagen comprimida
+      const formData = new FormData();
+      formData.append('file0', compressedFile);
 
-    let megabytes = bytes / (1024 * 1024);
-
-    let resultado = megabytes.toFixed(2)
-
-    if (resultado >= 2) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Error',
-        text: 'Tamaño de imagen demasiado grande, no debe superar 2MB'
-      });
-
-    } else if (data.status == "success" && fileInput.files[0]) {
-      //recoger imagen a subir
-      const formData = new FormData()
-
-      console.log(formData)
-
-      formData.append('file0', fileInput.files[0])
-
-      //peticion para enviar el fichero
+      // Peticion para enviar el fichero
       const uploadRequest = await fetch(Global.url + "user/upload", {
         method: "POST",
         body: formData,
         headers: {
           "Authorization": token
         }
-      })
-      const uploadData = await uploadRequest.json()
-      console.log(uploadData)
+      });
+      const uploadData = await uploadRequest.json();
+      console.log(uploadData);
 
       if (uploadData.status == "success" && uploadData.user) {
-        delete uploadData.password
-        setAuth({ ...auth, ...uploadData.user })
+        delete uploadData.password;
+        setAuth({ ...auth, ...uploadData.user });
         setTimeout(() => { window.location.reload() }, 0);
-        setSaved("saved")
+        setSaved("saved");
       } else {
-        setSaved("error")
+        setSaved("error");
       }
-
     }
+
+    // Función para comprimir la imagen
+    async function compressImage(file, maxWidth, maxHeight, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            // Crear un lienzo (canvas) para dibujar la imagen comprimida
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              // Redimensionar la imagen si supera el ancho máximo
+              height *= maxWidth / width;
+              width = maxWidth;
+            }
+            if (height > maxHeight) {
+              // Redimensionar la imagen si supera la altura máxima
+              width *= maxHeight / height;
+              height = maxHeight;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            // Dibujar la imagen en el lienzo con el tamaño redimensionado
+            ctx.drawImage(img, 0, 0, width, height);
+            // Convertir el lienzo a un archivo comprimido (blob)
+            canvas.toBlob((blob) => {
+              // Crear un nuevo archivo con el blob comprimido
+              const compressedFile = new File([blob], file.name, { type: file.type });
+              resolve(compressedFile);
+            }, file.type, quality);
+          };
+        };
+        reader.onerror = (error) => reject(error);
+      });
+    }
+
 
   }
   return (
