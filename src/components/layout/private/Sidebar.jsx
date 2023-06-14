@@ -42,13 +42,16 @@ export const Sidebar = () => {
         }
 
         //subir imag
-        const fileInput = document.querySelector("#file")
-
+        const fileInput = document.querySelector("#file");
         if (data.status == "success" && fileInput.files[0]) {
+            // Recoger imagen a subir
+            const compressedFile = await compressImage(fileInput.files[0], 800, 600, 0.7);
 
-            const formaData = new FormData()
-            formaData.append("file0", fileInput.files[0])
+            // Crear FormData con la imagen comprimida
+            const formData = new FormData();
+            formData.append('file0', compressedFile);
 
+            // Peticion para enviar el fichero
             const uploadRequest = await fetch(Global.url + "publication/upload/" + data.publicationStored._id, {
                 method: "POST",
                 body: formaData,
@@ -65,6 +68,47 @@ export const Sidebar = () => {
             }
         }
 
+        // Función para comprimir la imagen
+        async function compressImage(file, maxWidth, maxHeight, quality) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        // Crear un lienzo (canvas) para dibujar la imagen comprimida
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth) {
+                            // Redimensionar la imagen si supera el ancho máximo
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                        if (height > maxHeight) {
+                            // Redimensionar la imagen si supera la altura máxima
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        // Dibujar la imagen en el lienzo con el tamaño redimensionado
+                        ctx.drawImage(img, 0, 0, width, height);
+                        // Convertir el lienzo a un archivo comprimido (blob)
+                        canvas.toBlob((blob) => {
+                            // Crear un nuevo archivo con el blob comprimido
+                            const compressedFile = new File([blob], file.name, { type: file.type });
+                            resolve(compressedFile);
+                        }, file.type, quality);
+                    };
+                };
+                reader.onerror = (error) => reject(error);
+            });
+        }
+
+
         const myForm = document.querySelector("#publication-form")
         myForm.reset()
 
@@ -74,7 +118,7 @@ export const Sidebar = () => {
     return (
         <>
 
-            
+
             <div className="col-md-3">
                 <div className="card">
                     {auth.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid img-thumbnail" alt="Foto de perfil"></img>}
