@@ -54,7 +54,7 @@ export const Sidebar = () => {
             // Peticion para enviar el fichero
             const uploadRequest = await fetch(Global.url + "publication/upload/" + data.publicationStored._id, {
                 method: "POST",
-                body: formaData,
+                body: formData,
                 headers: {
                     "Authorization": token
                 }
