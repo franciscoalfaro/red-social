@@ -65,7 +65,7 @@ export const Feed = () => {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">TimeLine</h5>
-                    <p className="card-text">Contenido central</p>
+                    <p className="card-text"></p>
                     <button className="btn btn-success" onClick={() => getPublications(1, true)}>Mostrar nuevas</button>
                 </div>
             </div>

@@ -50,6 +50,7 @@ export const Profile = () => {
 
     }, [params])
 
+
     const getDataUser = async () => {
         let dataUser = await GetProfile(params.userId, setUser)
         if (dataUser.following && dataUser.following._id)
@@ -67,9 +68,14 @@ export const Profile = () => {
             }
         })
         const data = await request.json()
-        if (data.following) {
-            setCounters(data)
-
+        if (data) {
+            setCounters({following:data.following, followed: data.followed, publications:data.publications})
+        }else{
+            setCounters({
+                following: 0,
+                followed: 0,
+                publications: 0
+            })
 
         }
 
@@ -194,21 +200,21 @@ export const Profile = () => {
 
             <div className="card">
                 <div className="card-body publication">
-                    <h5 className="card-title">Mis Publicaciones</h5>
-                    <p className="card-text">Contenido central</p>
+                    <h5 className="card-title">Publicaciones de</h5>
+                    <p className="card-text">{user.name}</p>
                 </div>
             </div>
 
-
+   
             <div className="col-md-12">
                 <div className="card">
                     {user.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
-                    {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="card-img-profile img-fluid" alt="Foto de perfil"></img>}
+                    {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="img-fluid card-img-profile" alt="Foto de perfil"></img>}
                     <div className="card-body">
                         <h1 className="card-title">{user.name} {user.surname}</h1>
                         <p className="card-text">{user.nick}</p>
                         <p className="card-text">{user.bio}</p>
-                        {user._id != auth._id &&
+                        {user._id !== auth._id &&
                             (iFollows ?
                                 <button onClick={() => unfollow(user._id)} className="btn btn-danger">Dejar de seguir</button>
                                 : <button onClick={() => follow(user._id)} className="btn btn-success">Seguir</button>
