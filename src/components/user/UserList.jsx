@@ -101,7 +101,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
             {loading ? "Cargando" : ""}
             {more &&
                 <div className="content__container-btn">
-                    <button className="content__btn-more-post" onClick={nextPage}>
+                    <button className="btn btn-primary" onClick={nextPage}>
                         Ver mas Personas
                     </button>
                 </div>
