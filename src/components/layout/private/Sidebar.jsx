@@ -77,8 +77,8 @@ export const Sidebar = () => {
             
             <div className="col-md-3">
                 <div className="card">
-                    {auth.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
-                    {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
+                    {auth.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid img-thumbnail" alt="Foto de perfil"></img>}
+                    {auth.image != 'default.png' && <img src={Global.url + "user/avatar/" + auth.image} className="card-img-top img-fluid img-thumbnail" alt="Foto de perfil"></img>}
                     <div className="card-body">
                         <Link to={"/social/perfil/" + auth._id} className="card-title">{auth.name} {auth.surname}</Link>
                         <p className="card-text">{auth.nick}</p>

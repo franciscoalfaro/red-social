@@ -52,7 +52,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                                     <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
                                                 </div>
                                             </div>
-                                            <p className="card-text">{publication.text}</p>
+                                            <p className="card-text publication-text">{publication.text}</p>
                                             <div className="custom-image">
                                                 {publication.file && <img src={Global.url + "publication/media/" + publication.file} alt="Imagen de la publicación" className="img-fluid custom-img" />}
                                             </div>

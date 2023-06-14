@@ -68,9 +68,10 @@ export const Profile = () => {
             }
         })
         const data = await request.json()
-        if (data) {
-            setCounters({following:data.following, followed: data.followed, publications:data.publications})
-        }else{
+        if (data.following) {
+            //setCounters({following:data.following, followed: data.followed, publications:data.publications})
+            setCounters(data)
+        } else {
             setCounters({
                 following: 0,
                 followed: 0,
@@ -200,16 +201,17 @@ export const Profile = () => {
 
             <div className="card">
                 <div className="card-body publication">
-                    <h5 className="card-title">Publicaciones de</h5>
-                    <p className="card-text">{user.name}</p>
+                    <h5 className="card-title">Publicaciones de {user.name}</h5>
                 </div>
             </div>
 
-   
+
             <div className="col-md-12">
                 <div className="card">
-                    {user.image == 'default.png' && <img src={avatar} className="card-img-top img-fluid" alt="Foto de perfil"></img>}
-                    {user.image != 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="img-fluid card-img-profile" alt="Foto de perfil"></img>}
+                    <div className="image-box">
+                        {user.image === 'default.png' && <img src={avatar} className="card-img-top img-fluid img-thumbnail" alt="Foto de perfil"></img>}
+                        {user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="img-fluid card-img-profile img-thumbnail" alt="Foto de perfil"></img>}
+                    </div>
                     <div className="card-body">
                         <h1 className="card-title">{user.name} {user.surname}</h1>
                         <p className="card-text">{user.nick}</p>
@@ -219,38 +221,51 @@ export const Profile = () => {
                                 <button onClick={() => unfollow(user._id)} className="btn btn-danger">Dejar de seguir</button>
                                 : <button onClick={() => follow(user._id)} className="btn btn-success">Seguir</button>
                             )}
-                        <div className="d-flex justify-content-between">
-                            <div className="section">
-                                <h6>Siguiendo</h6>
-                                <Link to={"/social/siguiendo/" + user._id} className="following__link">
-                                    <span className="">{counters.following >= 1 ? counters.following : 0}</span>
-                                </Link>
+
+                        <div className="d-flex justify-content-start">
+                            <div className="section-box">
+                                <div className="section">
+                                    <h6>Siguiendo</h6>
+                                    <Link to={"/social/siguiendo/" + user._id} className="following__link">
+                                        <span className="">{counters.following >= 1 ? counters.following : 0}</span>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="section">
-                                <h6>Seguidores</h6>
-                                <Link to={"/social/seguidores/" + user._id} className="following__link">
-                                    <span className="">{counters.followed >= 1 ? counters.followed : 0}</span>
-                                </Link>
+                            <div className="section-box">
+                                <div className="section">
+                                    <h6>Seguidores</h6>
+                                    <Link to={"/social/seguidores/" + user._id} className="following__link">
+                                        <span className="">{counters.followed >= 1 ? counters.followed : 0}</span>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="section">
-                                <h6>Publicaciones</h6>
-                                <Link to={"/social/perfil/" + user._id} className="following__link">
-                                    <span className="following__number">{counters.publications >= 1 ? counters.publications : 0}</span>
-                                </Link>
-                            </div>
-                            <div className="section">
-                                <h6></h6>
-                                {user._id == auth._id && (
-                                    <div className="following__link">
-                                        <span className="following__title"></span>
-                                        <button onClick={deleteAcount} className='btn btn-danger'>desactivar cuenta</button>
-                                    </div>
-                                )}
+                            <div className="section-box">
+                                <div className="section">
+                                    <h6>Publicaciones</h6>
+                                    <Link to={"/social/perfil/" + user._id} className="following__link">
+                                        <span className="">{counters.publications >= 1 ? counters.publications : 0}</span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
+
+                        <div className="section-box">
+                            {user._id == auth._id && (
+                                <div className="section">
+                                    <h6></h6>
+                                    <div className="button__link">
+                                        <span className="following__title"></span>
+                                        <button onClick={deleteAcount} className='btn btn-danger'>Desactivar cuenta</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                 </div>
             </div>
+
+
 
             {saved == "error" ? <strong className='alert alert-success'>No existen mas publicaciones</strong> : ""
             }
