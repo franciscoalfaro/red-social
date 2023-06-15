@@ -209,8 +209,8 @@ export const Profile = () => {
             <div className="col-md-12">
                 <div className="card">
                     <div className="image-box">
-                        {user.image === 'default.png' && <img src={avatar} className="card-img-top img-fluid img-thumbnail" alt="Foto de perfil"></img>}
-                        {user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="img-fluid card-img-profile img-thumbnail" alt="Foto de perfil"></img>}
+                        {user.image === 'default.png' && <img src={avatar} className="card-img-profile img-fluid img-thumbnail" alt="Foto de perfil"></img>}
+                        {user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + user.image} className="card-img-profile img-fluid img-thumbnail" alt="Foto de perfil"></img>}
                     </div>
                     <div className="card-body">
                         <h1 className="card-title">{user.name} {user.surname}</h1>
