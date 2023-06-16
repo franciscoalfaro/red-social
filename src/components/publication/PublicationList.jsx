@@ -30,10 +30,22 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
         setMore(true)
     }
 
+    //cuando se efectue la publicacion de un enlace de youtube y se detecte en el cuerpo se agregara un 
+
+    function getYouTubeVideoId(url) {
+        const youtubeRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+        const matches = url.match(youtubeRegex);
+        if (matches && matches.length >= 4) {
+            return matches[3];
+        }
+        return null;
+    }
+
     return (
         <>
             <div className="row justify-content-center custom-content">
                 {publications.map(publication => {
+                    const youtubeVideoId = getYouTubeVideoId(publication.text);
                     return (
                         <div className="col-md-10" key={publication._id}>
                             <div className="row mb-4">
@@ -53,6 +65,17 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                                 </div>
                                             </div>
                                             <p className="card-text publication-text">{publication.text}</p>
+                                            {youtubeVideoId && (
+                                                <div className="youtube-video justify-content-center">
+                                                    <iframe
+                                                        width="560"
+                                                        height="315"
+                                                        src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                                                        frameborder="0"
+                                                        allowfullscreen
+                                                    ></iframe>
+                                                </div>
+                                            )}
                                             <div className="custom-image">
                                                 {publication.file && <img src={Global.url + "publication/media/" + publication.file} alt="Imagen de la publicación" className="img-fluid custom-img" />}
                                             </div>
