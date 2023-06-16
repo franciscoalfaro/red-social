@@ -30,16 +30,17 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
         setMore(true)
     }
 
-    //cuando se efectue la publicacion de un enlace de youtube y se detecte en el cuerpo se agregara un 
+    //cuando se efectue la publicacion de un enlace de youtube y se detecte en el cuerpo se
 
-    function getYouTubeVideoId(url) {
-        const youtubeRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+    const getYouTubeVideoId = (url) => {
+        const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
         const matches = url.match(youtubeRegex);
-        if (matches && matches.length >= 4) {
-            return matches[3];
+        if (matches && matches.length >= 2) {
+          return matches[1];
         }
         return null;
-    }
+      };
+      
 
     return (
         <>
@@ -66,7 +67,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                             </div>
                                             <p className="card-text publication-text">{publication.text}</p>
                                             {youtubeVideoId && (
-                                                <div className="youtube-video justify-content-center">
+                                                <div className="youtube-video">
                                                     <iframe
                                                         width="560"
                                                         height="315"
