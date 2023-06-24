@@ -150,6 +150,12 @@
   background-color: #0056b3;
 }
 
+.btn-remove {
+  padding: 0px;
+  padding-inline: 4px;
+  margin: 0px;
+}
+
 
 .section {
   border-right: 0.5px solid #ccc;

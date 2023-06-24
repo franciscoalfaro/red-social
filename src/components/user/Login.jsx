@@ -16,7 +16,7 @@ export const Login = () => {
 
         //datos del formulario
         let userLogin = form
-        console.log(userLogin)
+
 
         //peticion al back
         const request = await fetch(Global.url + "user/login", {
