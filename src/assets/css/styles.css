@@ -188,3 +188,35 @@
   align-items: center;
   justify-content: center;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+
+/* emojis */
+
+.emoji-input-container {
+  position: relative;
+}
+
+.emoji-input {
+  padding-right: 40px; /* Espacio para el botón de emojis */
+}
+
+.emoji-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+}
+/* fin de emojis */

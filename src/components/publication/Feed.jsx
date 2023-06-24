@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
 import { PublicationList } from '../publication/PublicationList'
+import { CommentList } from './CommentList'
 
 
 

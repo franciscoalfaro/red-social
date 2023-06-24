@@ -138,6 +138,8 @@ export const Profile = () => {
         })
 
         const data = await request.json()
+        if(data.status === "error_publi")
+        setSaved("error")
 
 
         if (data.status == "success") {
@@ -165,7 +167,7 @@ export const Profile = () => {
 
             }
 
-        } else if (data.status == "error") {
+        }else if (data.status == "error") {
             setSaved("error")
             setMore(false)
 
@@ -204,6 +206,8 @@ export const Profile = () => {
                     <h5 className="card-title">Publicaciones de {user.name}</h5>
                 </div>
             </div>
+
+            
 
 
             <div className="col-md-12">

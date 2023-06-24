@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
 import ReactTimeAgo from 'react-time-ago'
+import { CommentList } from './CommentList';
+
 
 export const PublicationList = ({ publications, page, setPage, more, setMore, getPublications }) => {
 
@@ -14,6 +16,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
         getPublications(next)
 
     }
+
 
     const deletePublication = async (publicationId) => {
         const request = await fetch(Global.url + "publication/delete/" + publicationId, {
@@ -30,17 +33,18 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
         setMore(true)
     }
 
+
     //cuando se efectue la publicacion de un enlace de youtube y se detecte en el cuerpo se
 
     const getYouTubeVideoId = (url) => {
         const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
         const matches = url.match(youtubeRegex);
         if (matches && matches.length >= 2) {
-          return matches[1];
+            return matches[1];
         }
         return null;
-      };
-      
+    };
+
 
     return (
         <>
@@ -71,9 +75,9 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                                     <iframe
                                                         width="560"
                                                         height="315"
-                                                        src={`https://www.youtube.com/embed/${youtubeVideoId}`}
-                                                        frameborder="0"
-                                                        allowfullscreen
+                                                        src={`https://www.youtube.com/embed/${getYouTubeVideoId(publication.text)}`}
+                                                        frameBorder="0"
+                                                        allowFullScreen
                                                     ></iframe>
                                                 </div>
                                             )}
@@ -84,6 +88,13 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                             {auth._id === publication.user._id &&
                                                 <button onClick={() => deletePublication(publication._id)} type="button" className="custom-btn btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
                                             }
+                                            
+                                           
+                                            <CommentList publicationId={publication._id}
+                                            publicationUser={publication.user._id}
+                                            ></CommentList>
+                                            
+
                                         </div>
                                     </div>
                                 </div>
