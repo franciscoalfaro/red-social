@@ -75,8 +75,8 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                             {youtubeVideoId && (
                                                 <div className="youtube-video">
                                                     <iframe
-                                                        width="560"
-                                                        height="315"
+                                                        width="360"
+                                                        height="220"
                                                         src={`https://www.youtube.com/embed/${getYouTubeVideoId(publication.text)}`}
                                                         frameBorder="0"
                                                         allowFullScreen
