@@ -88,7 +88,7 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
                                             </div>
 
                                             {auth._id === publication.user._id &&
-                                                <button onClick={() => deletePublication(publication._id)} type="button" className="custom-btn btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
+                                                <button onClick={() => deletePublication(publication._id)} type="button" className="btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
                                             }
                                             
                                            

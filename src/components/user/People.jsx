@@ -54,15 +54,25 @@ export const People = () => {
 
   return (
     <>
-    <UserList users={users} 
-              getUsers={getUsers} 
-              following={following} 
-              setFollowing={setFollowing}
-              page={page}
-              setPage={setPage}
-              more={more}
-              loading={loading}>
-              </UserList>
+      <div className="card">
+        <div className="card-body publication">
+          <h5 className="card-title">Buscador</h5>
+          <form>
+          <input type="text" name='search_field' className='search-form mr-sm-2' placeholder='Busqueda de personas'></input>
+          <button type='submit' className='btn btn-success my-2 my-sm-1'>Buscar</button>
+        </form>
+        </div>
+      </div>
+      
+      <UserList users={users}
+        getUsers={getUsers}
+        following={following}
+        setFollowing={setFollowing}
+        page={page}
+        setPage={setPage}
+        more={more}
+        loading={loading}>
+      </UserList>
     </>
   )
 }

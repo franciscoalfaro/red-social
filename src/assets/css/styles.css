@@ -118,6 +118,13 @@
   border-radius: 4px;
 }
 
+.search-form {
+  width: 90%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
 .section-custom {
   border-right: 0;
@@ -164,12 +171,19 @@
   text-align: center
 }
 
+
+
 /*imagen del sidebar */
 .card-img-top {
   border-radius: 20px;
   max-height: 300px;
   width: auto;
   /* Para mantener la proporción de aspecto original */
+}
+
+.comment-box{
+  border: 1px solid #fff4f4;
+  border-radius: 4px;
 }
 
 

@@ -32,6 +32,7 @@ export const PrivateLayout = () => {
                         <div className="col-md-9">
 
                         {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
+                       
 
                         {/*barra lateral*/}
                        </div>
