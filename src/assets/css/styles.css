@@ -50,6 +50,7 @@
 
 
 .navbar-custom {
+  padding: 1px;
   background-color: #4f9292;
 }
 
@@ -140,10 +141,12 @@
 
 .custom-search-input {
   width: 200px;
-  padding: 10px;
-  font-size: 14px;
-  border: 0.1px solid #ccc0;
-  border-radius: 30px;
+  padding: 5px;
+  font-size: 12px;
+  border: .1px solid #ccc0;
+  border-radius: 25px;
+  height: 40px;
+  margin-top: 4px;
 }
 
 .section-custom {
@@ -156,8 +159,8 @@
 }
 
 .btn {
-  margin-top: 4px;
-  padding: 10px;
+  margin-top: 10px;
+  padding: 5px;
   text-align: center;
   color: #fff;
   border: none;
@@ -206,7 +209,7 @@
 
 /*imagen del sidebar */
 .card-img-top {
-  border-radius: 20px;
+  border-radius: 70px;
   max-height: 300px;
   width: auto;
   /* Para mantener la proporción de aspecto original */
