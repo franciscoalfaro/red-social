@@ -56,11 +56,7 @@ export const People = () => {
     <>
       <div className="card">
         <div className="card-body publication">
-          <h5 className="card-title">Buscador</h5>
-          <form>
-          <input type="text" name='search_field' className='search-form mr-sm-2' placeholder='Busqueda de personas'></input>
-          <button type='submit' className='btn btn-success my-2 my-sm-1'>Buscar</button>
-        </form>
+          <h5 className="card-title">Gente</h5>
         </div>
       </div>
       

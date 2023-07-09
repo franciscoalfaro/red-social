@@ -83,11 +83,11 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                                     {user._id != auth._id &&
                                         <div className="">
                                             {!following.includes(user._id) && user.eliminado !== true &&
-                                                <button type="button" className="btn btn-primary" onClick={() => follow(user._id)}>Seguir</button>
+                                                <button type="button" className="btn btn-primary" onClick={() => follow(user._id)}> <i className="bi bi-person-plus"><span> Seguir</span></i></button>
 
                                             }
                                             {following.includes(user._id) && user.eliminado !== true &&
-                                                <button type="button" className="btn btn-danger" onClick={() => unfollow(user._id)}>Dejar de Seguir</button>
+                                                <button type="button" className="btn btn-danger" onClick={() => unfollow(user._id)}><i className="bi bi-person-slash"><span> Dejar de seguir</span></i></button>
                                             }
                                         </div>
                                     }

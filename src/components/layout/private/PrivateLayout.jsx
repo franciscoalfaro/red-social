@@ -21,21 +21,21 @@ export const PrivateLayout = () => {
             <>
                 {/*Layout*/}
                 <Header></Header>
-                <div className="container mt-4">
-                <div className="row"> 
-                    <Sidebar></Sidebar>
+                <div className="container mt-2">
+                    <div className="row">
+                        <Sidebar></Sidebar>
 
 
                         {/*cabecera y navegacion*/}
 
                         {/*contenido principal*/}
-                        <div className="col-md-9">
+                        <div className="col-md-8">
 
-                        {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
-                       
+                            {auth._id ? <Outlet></Outlet> : <Navigate to="/login"></Navigate>}
 
-                        {/*barra lateral*/}
-                       </div>
+
+                            {/*barra lateral*/}
+                        </div>
                     </div>
 
                 </div>

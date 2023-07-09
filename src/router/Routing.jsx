@@ -12,6 +12,10 @@ import { Config } from '../components/user/Config'
 import { Following } from '../components/follow/Following'
 import { Followers } from '../components/follow/Followers'
 import { Profile } from '../components/user/Profile'
+import { Footer } from '../components/layout/public/Footer'
+import { Search } from '../components/user/Search'
+import { Message } from '../components/user/Message'
+
 
 
 export const Routing = () => {
@@ -30,6 +34,8 @@ export const Routing = () => {
             <Route path='feed' element={<Feed></Feed>}></Route>
             <Route path='logout' element={<Logout></Logout>}></Route>
             <Route path='gente' element={<People></People>}></Route>
+            <Route path='buscar' element={<Search></Search>}></Route>
+            <Route path='mensaje' element={<Message></Message>}></Route>
             <Route path='ajustes' element={<Config></Config>}></Route>
             <Route path='siguiendo/:userId' element={<Following></Following>}></Route>
             <Route path='seguidores/:userId' element={<Followers></Followers>}></Route>
@@ -42,7 +48,9 @@ export const Routing = () => {
 
 
         </Routes>
+        
       </AuthProvider>
+      <Footer></Footer>
     </BrowserRouter>
   )
 }

@@ -4,6 +4,7 @@ import useAuth from '../../../hooks/useAuth'
 import { Global } from '../../../helpers/Global'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../../hooks/useForm'
+import { Footer } from '../public/Footer'
 
 
 export const Sidebar = () => {
@@ -108,7 +109,7 @@ export const Sidebar = () => {
             });
         }
 
-        if(data==null){
+        if (data == null) {
             console.log("form vacio")
         }
 
@@ -174,6 +175,7 @@ export const Sidebar = () => {
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

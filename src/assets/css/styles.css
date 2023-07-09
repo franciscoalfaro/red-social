@@ -64,7 +64,8 @@
 
 .navbar-custom .navbar-nav .nav-link:hover {
   color: #fff;
-  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  transform: scale(1.1, 1.1) ;
 }
 
 .navbar-custom .navbar-toggler-icon {
@@ -101,6 +102,17 @@
   margin-left: 20px;
 }
 
+
+.footer {
+  
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 0px;
+  text-align: center;
+  z-index: -1;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -126,6 +138,14 @@
   border-radius: 4px;
 }
 
+.custom-search-input {
+  width: 200px;
+  padding: 10px;
+  font-size: 14px;
+  border: 0.1px solid #ccc0;
+  border-radius: 30px;
+}
+
 .section-custom {
   border-right: 0;
 
@@ -140,6 +160,17 @@
   padding: 10px;
   text-align: center;
   color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn_search {
+  margin-top: 4px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
   cursor: pointer;

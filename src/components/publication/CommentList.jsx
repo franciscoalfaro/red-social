@@ -152,7 +152,7 @@ export const CommentList = ({ publicationId, publicationUser }) => {
                                     <div className="d-flex justify-content-between">
                                         <h6 className="mt-0">{comment.user.nick} | <NavLink to={'/social/perfil/' + comment.user._id} onClick={handleLinkClick} className="user-info__create-date"><ReactTimeAgo date={new Date(comment.create_at).getTime()} /></NavLink></h6>
                                         {(auth._id === publicationUser || auth._id === comment.user._id) && (
-                                            <button type="button" className="btn-remove btn btn-danger" onClick={() => deleteComment(comment._id)}><i class="bi bi-x-circle-fill"></i></button>
+                                            <button type="button" className="btn-remove btn btn-danger" onClick={() => deleteComment(comment._id)}><i className="bi bi-x-circle-fill"></i></button>
                                         )}
                                     </div>
                                     <p className="comment-text">{comment.comentario}</p>
