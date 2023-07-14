@@ -6,11 +6,14 @@ import avatar from '../../../src/assets/img/user.png'
 import ReactTimeAgo from 'react-time-ago'
 
 export const Search = () => {
-  const [more, setMore] = useState(true);
-  const [loading, setLoading] = useState(true);
+
   const [buscado, setBuscado] = useState([]);
   const params = useParams();
-  const auth = useAuth(); 
+  const auth = useAuth();
+  const [user, setUser] = useState({})
+
+  console.log(auth)
+
 
   const nextPage = () => {
     let next = page + 1;
@@ -19,7 +22,9 @@ export const Search = () => {
 
   useEffect(() => {
     busquedaPersona();
-  }, []);
+  }, [user]);
+
+
 
   useEffect(() => {
     busquedaPersona();
@@ -40,7 +45,53 @@ export const Search = () => {
     } else {
       console.log('Error en la búsqueda');
     }
+
   };
+
+
+  //seguir y dejar de seguir
+  const follow = async (userId) => {
+    //peticion al ajax para guardar el follow
+    const request = await fetch(Global.url + "follow/save", {
+      method: "POST",
+      body: JSON.stringify({ followed: userId }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token")
+      }
+
+    })
+
+    const data = await request.json()
+    if (data.status == "success") {
+
+      //actualizar el estado de following
+      setIFollows(true)
+
+
+    }
+  }
+
+  const unfollow = async (userId) => {
+    //peticion al ajax para borrar el follow
+    const request = await fetch(Global.url + "follow/unfollow/" + userId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token")
+      }
+
+    })
+    const data = await request.json()
+    if (data.status == "success") {
+      setIFollows(false)
+    } else if (data.status == "error") {
+      setSaved("error")
+
+
+    }
+
+  }
 
   return (
     <div>
@@ -69,7 +120,7 @@ export const Search = () => {
                     <span className="user-info__divider"> | </span>
                     <Link to={'/social/perfil/' + person._id} className="user-info__create-date">
                       <ReactTimeAgo date={new Date(person.create_at).getTime()}></ReactTimeAgo>
-                    </Link>                   
+                    </Link>
                   </div>
                 </div>
               </div>

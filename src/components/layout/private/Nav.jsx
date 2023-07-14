@@ -11,7 +11,12 @@ export const Nav = () => {
         e.preventDefault()
         let miBusqueda = e.target.search_field.value
         //aca paso el parametro del campo de la busquera y la derivo a la ruta donde esta, con este codigo { replace: true } reemplazo lo que se escribe en la url
+        if(miBusqueda == ''){
+            console.log('debe de ingresar texto')
+        }
         navegar("/social/search/" + miBusqueda, { replace: true })
+
+
 
     }
 
@@ -23,7 +28,7 @@ export const Nav = () => {
                         <NavLink className="navbar-brand" to="/social/">Red Social</NavLink>
 
                         <form className="d-flex" onSubmit={buscador}>
-                            <input type="text" name="search_field" className="form-control mr-sm-2 custom-search-input" placeholder="Busqueda de personas" />
+                            <input type="text" name="search_field" className="form-control mr-sm-2 custom-search-input" placeholder="Busqueda de personas" required/>
                             <button className="btn_search" type="submit" ><i className="bi bi-search"></i></button>
                         </form>
 

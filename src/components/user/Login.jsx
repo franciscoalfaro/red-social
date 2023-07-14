@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
@@ -31,22 +31,53 @@ export const Login = () => {
 
 
         if (data.status == "success") {
-            //persistir datos en el nav -- guardar datos de inicio de sesion
-            localStorage.setItem("token", data.token)
-            localStorage.setItem("user", JSON.stringify(data.user))
-            setSaved("login")
-            //Set Datos en el auth
-            setAuth(data.user)
-            //redireccion
-            setTimeout(() => { window.location.reload() }, 0)
+            // Persistir datos en el navegador - guardar datos de inicio de sesión
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            setSaved("login");
+            // Establecer datos en el auth
+            setAuth(data.user);
+            // Redirección
+          
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Login correcto',
+              showConfirmButton: false,
+              timer: 1500
+              
+            });
+            setTimeout(() => { window.location.reload() }, 1200);
+                      
+            
+          } else if (data.status == "error_404") {
+            setSaved("error_404");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Falta usuario o clave!',
+                
+              })
+          } else if (data.status == "Not Found") {
+            setSaved("warning");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Usuario no registrado!',
+                
+              })
 
-        } else if (data.status == "error_404") {
-            setSaved("error_404")
-        } else if (data.status == "Not Found") {
-            setSaved("warning")
-        } else {
-            setSaved("error")
-        }
+
+          } else {
+            setSaved("error");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'usuario o clave incorrecto!',
+                
+              })
+          }
+          
 
 
     }
@@ -60,10 +91,6 @@ export const Login = () => {
             <div className="row justify-content-center mt-5">
                 <div className="col-md-6 login-container">
                     <div className="login-form text-center">
-                        {saved == "login" ? <strong className='alert alert-success'>Te has identificado de forma correcta</strong> : ""}
-                        {saved == "warning" ? <strong className='alert alert-warning'>Usuario no registrado</strong> : ""}
-                        {saved == "error" ? <strong className='alert alert-danger'>usuario o clave incorrecto</strong> : ""}
-                        {saved == "error_404" ? <strong className='alert alert-warning'>Falta usuario o clave</strong> : ""}
                         <h2>Iniciar sesión</h2>
                         <form onSubmit={loginUser}>
                             <div className="form-group">
