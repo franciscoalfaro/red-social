@@ -5,6 +5,9 @@
   height: 100vh;
 }
 
+.a{
+  font-size: 14px;
+}
 .publication-text {
   text-align: left;
   margin-top: 10px;
@@ -31,6 +34,10 @@
 
 }
 
+.card-text{
+  font-size: 14px
+}
+
 .custom-content .card {
   margin-bottom: 20px;
 }
@@ -48,6 +55,11 @@
   margin-top: 20px;
 }
 
+.navbar-nav{
+  display: flex;
+  align-items: flex-start;
+
+}
 
 .navbar-custom {
   padding: 1px;

@@ -70,6 +70,7 @@ export const Feed = () => {
                     <button className="btn btn-success" onClick={() => getPublications(1, true)}>Mostrar nuevas</button>
                 </div>
             </div>
+            
             <PublicationList
                 publications={publications}
                 page={page}

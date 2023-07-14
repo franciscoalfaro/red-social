@@ -34,7 +34,7 @@ export const Routing = () => {
             <Route path='feed' element={<Feed></Feed>}></Route>
             <Route path='logout' element={<Logout></Logout>}></Route>
             <Route path='gente' element={<People></People>}></Route>
-            <Route path='buscar' element={<Search></Search>}></Route>
+            <Route path='search/:searchpeople' element={<Search></Search>}></Route>
             <Route path='mensaje' element={<Message></Message>}></Route>
             <Route path='ajustes' element={<Config></Config>}></Route>
             <Route path='siguiendo/:userId' element={<Following></Following>}></Route>

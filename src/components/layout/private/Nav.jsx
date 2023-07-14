@@ -1,11 +1,19 @@
-import React from 'react'
 import avatar from '../../../assets/img/user.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Global } from '../../../helpers/Global'
 
 export const Nav = () => {
     const { auth } = useAuth()
+    const navegar = useNavigate();
+
+    const buscador = (e) => {
+        e.preventDefault()
+        let miBusqueda = e.target.search_field.value
+        //aca paso el parametro del campo de la busquera y la derivo a la ruta donde esta, con este codigo { replace: true } reemplazo lo que se escribe en la url
+        navegar("/social/search/" + miBusqueda, { replace: true })
+
+    }
 
     return (
         <>
@@ -14,11 +22,11 @@ export const Nav = () => {
                     <div className="d-flex align-items-center">
                         <NavLink className="navbar-brand" to="/social/">Red Social</NavLink>
 
-                        <form className="d-flex">
+                        <form className="d-flex" onSubmit={buscador}>
                             <input type="text" name="search_field" className="form-control mr-sm-2 custom-search-input" placeholder="Busqueda de personas" />
-                            <button className="btn_search" type="submit" to="/social/buscar"><i className="bi bi-search"></i></button>
-                           {/* <NavLink className='btn_search' type='submit' to="/social/buscar"><i className="bi bi-search"></i></NavLink>*/}
+                            <button className="btn_search" type="submit" ><i className="bi bi-search"></i></button>
                         </form>
+
                     </div>
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +34,7 @@ export const Nav = () => {
                     </button>
 
                     <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/social/feed"><i className="bi bi-card-list"><span> Feed</span></i></NavLink>
                             </li>
