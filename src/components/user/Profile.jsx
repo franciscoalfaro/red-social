@@ -68,7 +68,8 @@ export const Profile = () => {
             }
         })
         const data = await request.json()
-        if (data.following) {
+        //console.log(data)
+        if (data) {
             //setCounters({following:data.following, followed: data.followed, publications:data.publications})
             setCounters(data)
         } else {
@@ -230,6 +231,7 @@ export const Profile = () => {
                                     <h6>Siguiendo</h6>
                                     <Link to={"/social/siguiendo/" + user._id} className="following__link">
                                         <span className="">{counters.following >= 1 ? counters.following : 0}</span>
+                                        
                                     </Link>
                                 </div>
                             </div>
@@ -238,6 +240,7 @@ export const Profile = () => {
                                     <h6>Seguidores</h6>
                                     <Link to={"/social/seguidores/" + user._id} className="following__link">
                                         <span className="">{counters.followed >= 1 ? counters.followed : 0}</span>
+                                       
                                     </Link>
                                 </div>
                             </div>
