@@ -15,6 +15,8 @@ import { Profile } from '../components/user/Profile'
 import { Footer } from '../components/layout/public/Footer'
 import { Search } from '../components/user/Search'
 import { Message } from '../components/user/Message'
+import { Recovery } from '../components/user/Recovery'
+import { ChangePass } from '../components/user/ChangePass'
 
 
 
@@ -27,6 +29,7 @@ export const Routing = () => {
             <Route index element={<Login></Login>}></Route>
             <Route path='login' element={<Login></Login>}></Route>
             <Route path='registro' element={<Register></Register>}></Route>
+            <Route path='recuperar' element={<Recovery></Recovery>}></Route>
           </Route>
 
           <Route path='/social' element={<PrivateLayout></PrivateLayout>}>
@@ -40,6 +43,7 @@ export const Routing = () => {
             <Route path='siguiendo/:userId' element={<Following></Following>}></Route>
             <Route path='seguidores/:userId' element={<Followers></Followers>}></Route>
             <Route path='perfil/:userId' element={<Profile></Profile>}></Route>
+            <Route path='cambiarpass' element={<ChangePass></ChangePass>}></Route>
           </Route>
 
 

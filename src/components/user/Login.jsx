@@ -44,7 +44,7 @@ export const Login = () => {
               icon: 'success',
               title: 'Login correcto',
               showConfirmButton: false,
-              timer: 1500
+              timer: 1150
               
             });
             setTimeout(() => { window.location.reload() }, 1200);
@@ -105,15 +105,9 @@ export const Login = () => {
                             <div className="form-group mt-3">
                                 <ul className="nav justify-content-center">
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to="/login">
-                                            <span>Login</span>
-                                        </NavLink>
-                                    </li>
-                                    <li className="nav-item">
                                         <NavLink className="nav-link" to="/registro">
-                                            <span>Registro</span>
+                                            <span>Registrate</span>
                                         </NavLink>
-
                                     </li>
                                 </ul>
                             </div>

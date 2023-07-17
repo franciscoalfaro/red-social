@@ -60,10 +60,10 @@ export const Nav = () => {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/social/ajustes">Ajustes</NavLink>
+                                <NavLink className="nav-link" to="/social/ajustes"><i className="bi bi-gear"><span> Ajustes</span></i></NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/social/logout">Cerrar sesión</NavLink>
+                                <NavLink className="nav-link" to="/social/logout"><i className="bi bi-box-arrow-right"><span> Cerrar sesión</span></i></NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to={"/social/perfil/" + auth._id} className="nav-link">

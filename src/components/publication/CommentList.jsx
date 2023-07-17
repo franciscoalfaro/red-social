@@ -162,7 +162,9 @@ export const CommentList = ({ publicationId, publicationUser }) => {
                     ))}
                 </div>
             ) : (
+                
                 <p>No hay comentarios.</p>
+                
             )}
 
             {more && (

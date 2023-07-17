@@ -51,6 +51,17 @@
   background-color: #fff;
 }
 
+
+.register-form {
+  margin-top: 100px;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+
 .nav {
   margin-top: 20px;
 }
@@ -112,9 +123,14 @@
 }
 
 .login-container {
-  margin-left: 20px;
+  display: flex;
+  justify-content: center;
 }
 
+.register-container {
+  display: flex;
+  justify-content: center;
+}
 
 .footer {
   

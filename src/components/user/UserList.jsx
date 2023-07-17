@@ -4,6 +4,7 @@ import { Global } from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import ReactTimeAgo from 'react-time-ago'
+import { Spiner } from '../layout/private/Spiner'
 
 
 export const UserList = ({ users, getUsers, following, setFollowing, page, setPage, more, loading }) => {
@@ -98,7 +99,7 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
                 })}
             </div>
 
-            {loading ? "Cargando" : ""}
+           { loading ? <Spiner></Spiner>:"" }
             {more &&
                 <div className="content__container-btn">
                     <button className="btn btn-primary" onClick={nextPage}>

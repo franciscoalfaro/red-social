@@ -221,8 +221,8 @@ export const Profile = () => {
                         <p className="card-text">{user.bio}</p>
                         {user._id !== auth._id &&
                             (iFollows ?
-                                <button onClick={() => unfollow(user._id)} className="btn btn-danger">Dejar de seguir</button>
-                                : <button onClick={() => follow(user._id)} className="btn btn-success">Seguir</button>
+                                <button onClick={() => unfollow(user._id)} className="btn btn-danger"><i className="bi bi-person-slash"><span> Dejar de seguir</span></i></button>
+                                : <button onClick={() => follow(user._id)} className="btn btn-success"><i className="bi bi-person-plus"><span> Seguir</span></i></button>
                             )}
 
                         <div className="d-flex justify-content-start">

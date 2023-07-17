@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { Global } from '../../helpers/Global'
+import { NavLink } from 'react-router-dom'
 
 export const Register = () => {
     const { form, changed } = useForm({})
@@ -25,53 +26,75 @@ export const Register = () => {
 
         const data = await request.json()
 
-        if(data.status == "success"){
+        if (data.status == "success") {
             setSaved("saved")
-        }if(data.status == "warning"){
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Usuario Registrado Correctamente',
+                showConfirmButton: false,
+                timer: 1100
+
+            });
+            setTimeout(() => { window.location.href = "/login" }, 1200);
+
+        } if (data.status == "warning") {
             setSaved("warning")
-        }if(data.status == "error"){
+        } if (data.status == "error") {
             setSaved("error")
         }
 
     }
     return (
         <>
-            <header className="content__header content__header--public">
-                <h1 className="content__title">Registro</h1>
-            </header>
+            <div className="row justify-content-center mt-5">
+                <div className="col-md-6 register-container">
+                    <div className="register-form text-center">
+                        <h2>Registro</h2>
 
-            <div className="content__posts">
-            {saved =="saved"? <strong className='alert alert-success'>Usuario Registrado Correctamente</strong>:""}
-            {saved =="warning"? <strong className='alert alert-warning'> Usuario ya existe </strong>: ""}
-            {saved =="error"?   <strong className='alert alert-danger'>Error al crear el usuario</strong> : ""}
-     
-                <form className='register-form' onSubmit={saveUser}>
-                    <div className='form-group'>
-                        <label htmlFor='name'>Nombre</label>
-                        <input type='text' name='name' onChange={changed}></input>
-                    </div>
+                        {saved == "warning" ? <strong className='alert alert-warning'> Usuario ya existe </strong> : ""}
+                        {saved == "error" ? <strong className='alert alert-danger'>Error al crear el usuario</strong> : ""}
 
-                    <div className='form-group'>
-                        <label htmlFor='surname'>Apellidos</label>
-                        <input type='text' name='surname' onChange={changed}></input>
-                    </div>
+                        <form onSubmit={saveUser}>
+                            <div className='form-group'>
+                                <label htmlFor='name'>Nombre</label>
+                                <input type='text' className="form-control" name='name' onChange={changed}></input>
+                            </div>
 
-                    <div className='form-group'>
-                        <label htmlFor='nick'>Nick o apodo</label>
-                        <input type='text' name='nick' onChange={changed}></input>
-                    </div>
+                            <div className='form-group'>
+                                <label htmlFor='surname'>Apellidos</label>
+                                <input type='text' name='surname' className="form-control" onChange={changed}></input>
+                            </div>
 
-                    <div className='form-group'>
-                        <label htmlFor='email'>Email</label>
-                        <input type='email' name='email' onChange={changed}></input>
-                    </div>
+                            <div className='form-group'>
+                                <label htmlFor='nick'>Nick o apodo</label>
+                                <input type='text' name='nick' className="form-control" onChange={changed}></input>
+                            </div>
 
-                    <div className='form-group'>
-                        <label htmlFor='password'>Contraseña</label>
-                        <input type='password' name='password' onChange={changed}></input>
+                            <div className='form-group'>
+                                <label htmlFor='email'>Email</label>
+                                <input type='email' name='email' className="form-control" onChange={changed}></input>
+                            </div>
+
+                            <div className='form-group'>
+                                <label htmlFor='password'>Contraseña</label>
+                                <input type='password' name='password' className="form-control" onChange={changed}></input>
+                            </div>
+                            <input type="submit" value="Registrate" className="btn btn-success"></input>
+                        </form>
+
+                        <div className="form-group mt-3">
+                            <ul className="nav justify-content-center">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">
+                                        <span>Login</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
-                    <input type="submit" value="Registrate" className="btn btn-success"></input>
-                </form>
+                </div>
             </div>
 
         </>
