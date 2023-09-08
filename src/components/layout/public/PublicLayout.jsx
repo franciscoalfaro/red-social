@@ -6,7 +6,7 @@ import useAuth from '../../../hooks/useAuth'
 export const PublicLayout = () => {
 
     const { auth } = useAuth()
-    console.log('sss',auth)
+
 
     if (typeof auth === 'undefined') {
         localStorage.clear()
