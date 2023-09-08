@@ -7,13 +7,8 @@ import { Spiner } from './Spiner'
 
 export const PrivateLayout = () => {
     const { auth, loading } = useAuth()
-
-    if (typeof auth === 'undefined') {
-        localStorage.clear()
-
-
-
-    } if (loading) {
+    
+    if (loading) {
         return <Spiner></Spiner>
 
     } else {
