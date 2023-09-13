@@ -62,7 +62,7 @@ export const Sidebar = () => {
             })
             const uploadData = await uploadRequest.json()
             if (uploadData.status == "success") {
-                console.log(uploadData)
+            
                 setStored("stored")
             } else {
                 setStored("error")

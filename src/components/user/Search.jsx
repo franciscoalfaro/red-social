@@ -12,8 +12,6 @@ export const Search = () => {
   const auth = useAuth();
   const [user, setUser] = useState({})
 
-  console.log(auth)
-
 
   const nextPage = () => {
     let next = page + 1;
@@ -87,6 +85,7 @@ export const Search = () => {
       setIFollows(false)
     } else if (data.status == "error") {
       setSaved("error")
+      console.log('sss',data.status)
 
 
     }
