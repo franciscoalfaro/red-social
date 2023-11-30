@@ -38,46 +38,46 @@ export const Login = () => {
             // Establecer datos en el auth
             setAuth(data.user);
             // Redirección
-          
+
             Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Login correcto',
-              showConfirmButton: false,
-              timer: 1150
-              
+                position: 'center',
+                icon: 'success',
+                title: 'Login correcto',
+                showConfirmButton: false,
+                timer: 1150
+
             });
             setTimeout(() => { window.location.reload() }, 1200);
-                      
-            
-          } else if (data.status == "error_404") {
+
+
+        } else if (data.status == "error_404") {
             setSaved("error_404");
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Falta usuario o clave!',
-                
-              })
-          } else if (data.status == "Not Found") {
+
+            })
+        } else if (data.status == "Not Found") {
             setSaved("warning");
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
                 text: 'Usuario no registrado!',
-                
-              })
+
+            })
 
 
-          } else {
+        } else {
             setSaved("error");
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'usuario o clave incorrecto!',
-                
-              })
-          }
-          
+
+            })
+        }
+
 
 
     }
@@ -87,26 +87,29 @@ export const Login = () => {
 
 
 
-
             <div className="row justify-content-center mt-5">
                 <div className="col-md-6 login-container">
                     <div className="login-form text-center">
                         <h2>Iniciar sesión</h2>
                         <form onSubmit={loginUser}>
                             <div className="form-group">
-                                <label htmlFor="email" className="">Direccion de correo</label>
-                                <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={changed} required></input>
-
+                                <label htmlFor="email" className="">Dirección de correo</label>
+                                <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={changed} required />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password" className="">Password</label>
-                                <input type="password" name="password" className="form-control" id="exampleInputPassword1" onChange={changed} required></input>
+                                <label htmlFor="password" className="">Contraseña</label>
+                                <input type="password" name="password" className="form-control" id="exampleInputPassword1" onChange={changed} required />
                             </div>
                             <div className="form-group mt-3">
                                 <ul className="nav justify-content-center">
                                     <li className="nav-item">
                                         <NavLink className="nav-link" to="/registro">
-                                            <span>Registrate</span>
+                                            <span>Regístrate</span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/recuperar">
+                                            <span>¿Olvidaste tu contraseña?</span>
                                         </NavLink>
                                     </li>
                                 </ul>
@@ -116,7 +119,7 @@ export const Login = () => {
                     </div>
                 </div>
             </div>
-            
+
 
 
         </>
