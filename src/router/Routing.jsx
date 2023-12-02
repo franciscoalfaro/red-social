@@ -16,7 +16,7 @@ import { Footer } from '../components/layout/public/Footer'
 import { Search } from '../components/user/Search'
 import { Message } from '../components/user/Message'
 import { Recovery } from '../components/user/Recovery'
-import { ChangePass } from '../components/user/ChangePass'
+
 
 
 
@@ -43,7 +43,6 @@ export const Routing = () => {
             <Route path='siguiendo/:userId' element={<Following></Following>}></Route>
             <Route path='seguidores/:userId' element={<Followers></Followers>}></Route>
             <Route path='perfil/:userId' element={<Profile></Profile>}></Route>
-            <Route path='cambiarpass' element={<ChangePass></ChangePass>}></Route>
           </Route>
 
 
