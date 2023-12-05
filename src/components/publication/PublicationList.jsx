@@ -5,13 +5,16 @@ import useAuth from '../../hooks/useAuth'
 import ReactTimeAgo from 'react-time-ago'
 import { CommentList } from './CommentList';
 import { Spiner } from '../layout/private/Spiner'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { LikeList } from './LikeList'
 
 
 export const PublicationList = ({ publications, page, setPage, more, setMore, getPublications }) => {
 
     const { auth } = useAuth()
     const [loading, setLoading] = useState(true)
+
+
 
     const nextPage = () => {
         let next = page + 1
@@ -52,67 +55,80 @@ export const PublicationList = ({ publications, page, setPage, more, setMore, ge
     };
 
 
-    return (
-<>
-    <div className="row justify-content-center custom-content">
-        {publications.map(publication => {
-            const youtubeVideoId = getYouTubeVideoId(publication.text);
-            return (
-                <div className="col-md-10" key={publication._id}>
-                    <div className="row mb-4">
-                        <div className="col-md-12">
-                            <div className="card h-100">
-                                <div className="card-body">
-                                    <div className="d-flex align-items-center">
-                                        <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
-                                            {publication.user.image === 'default.png' && <img src={avatar} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
-                                            {publication.user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
-                                        </Link>
 
-                                        <div className="ml-3">
-                                            <Link to={"/social/perfil/" + publication.user._id} className="mb-0">{publication.user.name}  {publication.user.surname}</Link>
-                                            <span className="user-info__divider"> | </span>
-                                            <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
+    return (
+        <>
+            <div className="row justify-content-center custom-content">
+                {publications.map(publication => {
+                    const youtubeVideoId = getYouTubeVideoId(publication.text);
+                    return (
+                        <div className="col-md-10" key={publication._id}>
+                            <div className="row mb-4">
+                                <div className="col-md-12">
+                                    <div className="card h-100">
+                                        <div className="card-body">
+                                            <div className="d-flex align-items-center">
+                                                <Link to={"/social/perfil/" + publication.user._id} className="post__image-link">
+                                                    {publication.user.image === 'default.png' && <img src={avatar} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
+                                                    {publication.user.image !== 'default.png' && <img src={Global.url + "user/avatar/" + publication.user.image} className="img-fluid img-thumbnail rounded-circle profile-image" alt="Foto de perfil" />}
+                                                </Link>
+
+                                                <div className="ml-3">
+                                                    <Link to={"/social/perfil/" + publication.user._id} className="mb-0">{publication.user.name}  {publication.user.surname}</Link>
+                                                    <span className="user-info__divider"> | </span>
+                                                    <a href="#" className="user-info__create-date"><ReactTimeAgo date={new Date(publication.create_at).getTime()}></ReactTimeAgo></a>
+                                                </div>
+                                            </div>
+
+                                            <p className="card-text publication-text">{publication.text}</p>
+                                            {youtubeVideoId && (
+                                                <div className="youtube-video"><iframe width="360" height="220" src={`https://www.youtube.com/embed/${getYouTubeVideoId(publication.text)}`} frameBorder="0" allowFullScreen></iframe>                                      </div>
+                                            )}
+                                            <div className="custom-image">
+                                                {publication.file && <img src={Global.url + "publication/media/" + publication.file} alt="Imagen de la publicación" className="img-fluid custom-img" />}
+                                            </div>
+
+                                            {auth._id === publication.user._id &&
+                                                <button onClick={() => deletePublication(publication._id)} type="button" className="btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
+                                            }
+
+
+
+                                            <LikeList
+                                            publicationId={publication._id}
+                                            >
+
+                                            </LikeList>
+
+
+
+
+
+                                            <CommentList
+                                                publicationId={publication._id}
+                                                publicationUser={publication.user._id}>
+                                            </CommentList>
+
+
                                         </div>
                                     </div>
-                                    <p className="card-text publication-text">{publication.text}</p>
-                                    {youtubeVideoId && (
-                                        <div className="youtube-video"><iframe width="360" height="220" src={`https://www.youtube.com/embed/${getYouTubeVideoId(publication.text)}`} frameBorder="0" allowFullScreen></iframe>                                      </div>
-                                    )}
-                                    <div className="custom-image">
-                                        {publication.file && <img src={Global.url + "publication/media/" + publication.file} alt="Imagen de la publicación" className="img-fluid custom-img" />}
-                                    </div>
-
-                                    {auth._id === publication.user._id &&
-                                        <button onClick={() => deletePublication(publication._id)} type="button" className="btn btn-danger btn-sm"><i className="bi bi-trash"></i> Eliminar</button>
-                                    }
-
-
-                                    <CommentList 
-                                    publicationId={publication._id}
-                                    publicationUser={publication.user._id}>
-                                    </CommentList>
-
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    );
+                })}
+            </div>
+
+            {more &&
+                <div className="">
+                    <button type="button" className="btn btn-success" onClick={nextPage}>
+                        Ver mas publicaciones
+                    </button>
                 </div>
-            );
-        })}
-    </div>
-
-    {more &&
-        <div className="">
-            <button type="button" className="btn btn-success" onClick={nextPage}>
-                Ver mas publicaciones
-            </button>
-        </div>
-    }
+            }
 
 
-</>
+        </>
     )
 
 }
