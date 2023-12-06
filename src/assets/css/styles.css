@@ -302,3 +302,15 @@
   font-size: 16px;
 }
 /* fin de emojis */
+
+
+/* Estilos de los tooltips */
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px; /* Espacio entre los botones */
+  text-align: center;
+}
+
+

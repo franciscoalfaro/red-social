@@ -9,6 +9,7 @@ export const LikeList = ({ publicationId }) => {
     const [gusta, setGusta] = useState([]);
     const [nomegusta, setNomeGusta] = useState([]);
 
+
     useEffect(() => {
         listgusta(publicationId);
     }, [publicationId]);
@@ -59,7 +60,7 @@ export const LikeList = ({ publicationId }) => {
                 }
             });
             const data = await request.json();
-
+    
             if (data.likesCount) {
                 setLikesCount(data.likesCount);
             }
@@ -67,9 +68,15 @@ export const LikeList = ({ publicationId }) => {
                 setNoLikesCount(data.nolikesCount);
             }
             if (data.likes) {
+                const likedUsers = data.likes.map(like => `${like.user.name} ${like.user.surname}`);
+                console.log("Usuarios que dieron like:", likedUsers);
+                // Aquí puedes utilizar likedUsers como necesites en tu componente
                 setGusta(data.likes);
             }
             if (data.Nolikes) {
+                const noLikedUsers = data.Nolikes.map(noLike => `${noLike.user.name} ${noLike.user.surname}`);
+                console.log("Usuarios que no dieron like:", noLikedUsers);
+                // Aquí puedes utilizar noLikedUsers como necesites en tu componente
                 setNomeGusta(data.Nolikes);
             }
         } catch (error) {
@@ -77,22 +84,21 @@ export const LikeList = ({ publicationId }) => {
         }
     };
 
-    console.log(gusta)
-
-    //issue queda pendiente obtener el listado de los usuarios que hicieron like y no like y ser mostrado como lista o pop up 
-
     return (
-        <>
-            <div>
-                <button onClick={() => megusta(publicationId)} type="button" className={`btn btn-sm ${gusta.length > 0 ? 'btn-light' : 'btn-light'}`}>
-                    <i className={`bi bi-hand-thumbs-up ${gusta.length > 0 ? 'text-black' : 'text-black'}`}></i>
-                    <span className={`ml-1 ${gusta.length > 0 ? 'text-black' : 'text-black'}`}>{likesCount}</span> 
-                </button>
-                <button onClick={() => nogusta(publicationId)} type="button" className={`btn btn-sm ${nomegusta.length > 0 ? 'btn-light' : 'btn-light'}`}>
-                    <i className={`bi bi-hand-thumbs-down ${nomegusta.length > 0 ? 'text-black' : 'text-black'}`}></i>
-                    <span className={`ml-1 ${nomegusta.length > 0 ? 'text-black' : 'text-black'}`}>{nolikesCount}</span>
-                </button>
-            </div>
-        </>
+        <div className="like-buttons-container">
+        <div className="tooltip-container">
+          <button  onClick={() => megusta(publicationId)} className={`btn btn-sm ${gusta.length > 0 ? 'btn-light' : 'btn-light'}`} title={gusta.map(like => `${like.user.name} ${like.user.surname}`).join('\n')} >
+            <i className={`bi bi-hand-thumbs-up ${gusta.length > 0 ? 'text-black' : 'text-black'}`}></i> <span className={`ml-1 ${gusta.length > 0 ? 'text-black' : 'text-black'}`}>{likesCount}</span>
+          </button>
+        </div>
+  
+        <div className="tooltip-container">
+          <button  onClick={() => nogusta(publicationId)}  className={`btn btn-sm ${nomegusta.length > 0 ? 'btn-light' : 'btn-light'}`}  title={nomegusta.map(noLike => `${noLike.user.name} ${noLike.user.surname}`).join('\n')}  >
+            <i className={`bi bi-hand-thumbs-down ${nomegusta.length > 0 ? 'text-black' : 'text-black'}`}></i> <span className={`ml-1 ${nomegusta.length > 0 ? 'text-black' : 'text-black'}`}>{nolikesCount}</span>
+          </button>
+        </div>
+
+        
+      </div>
     );
 };

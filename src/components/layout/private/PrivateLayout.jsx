@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import useAuth from '../../../hooks/useAuth'
@@ -7,6 +7,12 @@ import { Spiner } from './Spiner'
 
 export const PrivateLayout = () => {
     const { auth, loading } = useAuth()
+    const navigate = useNavigate()
+    if (typeof auth === 'undefined') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/login')
+    }
     
     if (loading) {
         return <Spiner></Spiner>
